@@ -61,7 +61,7 @@
                   the \cclicense{}.}}
                 \def\@oddhead{\raisebox{20\p@}[\z@]{%
 			\begin{minipage}[t]{0.7\textwidth}\vspace{4pt}\large\sf FOR AUTHOR REVIEW\newline Scheduled for JTLU \@jtluvolume{}.\@jtluissue{}\end{minipage}
-	\begin{minipage}[t]{0.3\textwidth}\vspace{0pt}\hfill\includegraphics{\mypath../_latexfiles/logos/jtlu-logo-red}\end{minipage}
+	\begin{minipage}[t]{0.3\textwidth}\vspace{0pt}\hfill\includegraphics{jtlu-logo-red}\end{minipage}
 	}}}		
 	}
 %	
@@ -80,7 +80,7 @@
                   the \cclicense{}.}}
  		\def\@oddhead{\raisebox{20\p@}[\z@]{% First page header
 			\begin{minipage}[t]{0.7\textwidth}\vspace{4pt}\makeissueinfo\end{minipage}
-			\begin{minipage}[t]{0.3\textwidth}\vspace{0pt}\hfill\includegraphics{\mypath../_latexfiles/logos/jtlu-logo-red}\end{minipage}
+			\begin{minipage}[t]{0.3\textwidth}\vspace{0pt}\hfill\includegraphics{jtlu-logo-red}\end{minipage}
 	}}}
 	% Commands to be executed immediately following \begin{document}:	
  \AtBeginDocument{ 
