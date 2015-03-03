@@ -9,7 +9,7 @@
 % 	<<trb>>			named journal=trb (error with cite)
 %   	<<strc>>		named journal=strc
 %	<<latsis>>		named jorunal=latsis (error)
-%	<<jtlu>>		named journal=jtlu (error)
+%	<<jtlu>>		named journal=jtlu
 
 %%  http://tex.stackexchange.com/questions/68463/mark-key-value-class-options-as-used
 \ifx\pdfoutput\@undefined \newcount\pdfoutput \fi
