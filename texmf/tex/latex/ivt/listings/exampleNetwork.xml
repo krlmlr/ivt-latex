@@ -1,0 +1,13 @@
+<network name="example network file" xml:lang="de-CH">
+	<nodes>
+		<node id="1" x="0.0" y="0.0" />
+		<node id="2" x="80.0" y="0.0" />
+		<node id="3" x="160.0" y="0.0" />
+		...
+	</nodes>
+	<links capperiod="01:00:00">
+		<link id="100" from="1" to="2" length="90.0" freespeed="7.5" capacity="1800.0" permlanes="1"/>
+		<link id="101" from="2" to="3" length="90.0" freespeed="7.5" capacity="1800.0" permlanes="1"/>
+		...
+	</links>
+</network>

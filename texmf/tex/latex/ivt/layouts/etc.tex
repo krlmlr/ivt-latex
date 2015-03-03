@@ -1,0 +1,187 @@
+% !TeX encoding = usascii
+% Prepare to get rid of \mypath one day
+\providecommand\mypath[3]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% ETC PAPER LAYOUT
+%% Date: 2011-11-14
+%% author:
+%%   Kirill M\"uller, kirill.mueller@ivt.baug.ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Standard latex layout configurations
+%%   Here, commands and settings are use which are available
+%%   by the latex packages
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Type of document:
+%% - Paperformat: letterpaper, a4paper, a5paper, b5paper,
+%%   executivepaper, legalpaper
+%% - Main font size: 10pt, 11pt, 12pt
+%% - Formulae setting: - (centred), fleqn (left-aligned)
+%% - Numbering of formulae: - (right-aligned), leqno (left-aligned)
+%% - New page after title: titlepage, notitlepage
+%% - Number of columns per page: onecolumn, twocolumn
+%% - Page style: oneside, twoside
+%% - Paper rotation: - (protrait), landscape
+%% - Chapter start: openright, openany
+%% - Mark overfull boxes: draft, final
+\ifdefined\wcFileName
+\documentclass[a4paper,12pt,fleqn,titlepage,onecolumn,oneside,final,bibliography=totocnumbered,numbers=noenddot]{article}
+\else
+\documentclass[a4paper,12pt,fleqn,titlepage,onecolumn,oneside,final,bibliography=totocnumbered,numbers=noenddot]{scrartcl}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% borders, margrins and offset
+\ifdefined\wcFileName
+\else
+\usepackage[a4paper,left=1.25in,right=1.25in,top=1.0in,bottom=1.0in]{geometry}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Package options
+\PassOptionsToPackage{nooneline,labelsep=quad,format=hang}{caption}
+\PassOptionsToPackage{fleqn}{amsmath}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Include default packages and settings
+\input{\mypath../_latexfiles/_layouts/_packages}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Header and footer definition:
+\usepackage{scrpage2}%
+\newcommand{\mypagestyle}{scrheadings}
+\clearscrheadfoot
+\ofoot{\normalfont\textbf{\squelch{\copyright{} Association for European Transport and Contributors \myyear}}}%
+\ohead[\pagemark]{\squelch{\pagemark}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% paragraph settings:
+\setlength{\parindent}{0pt}%
+\setlength{\parskip}{12pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the depth of numbering parts,chapter,sections and paragraphs:
+%%   Numbers representing the depth of sectional units:
+%%   -1 = \part    (in book or report document classes)
+%%    0 = \chapter (in book or report document classes)
+%%    0 = \part    (in article document classes)
+%%    1 = \section
+%%    2 = \subsection
+%%    3 = \subsubsection
+%%    4 = \paragraph
+%%    5 = \subparagraph
+\setcounter{secnumdepth}{2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% citation style:
+\setcitestyle{authoryear,round}%
+\ifthenelse{\equal{\myfirstlang}{german}}{%
+  \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-ger}%
+}{%
+  \bibliographystyle{\mypath../_latexfiles/styles/template_etc-eng}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% no indentation for formulae:
+\setlength\mathindent{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Helvetica font:
+\input{\mypath../_latexfiles/_layouts/_font-helvetica}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% single line spacing
+\singlespacing
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% heading settings:
+%%   now using the titlesec package
+%%
+%% legacy (match appearance of previous version)
+%%
+%% section
+\titleformat{\section}{\normalfont\bfseries}{\thesection}{1em}{\MakeTextUppercase}
+\titlespacing*{\section}{0in}{\parskip}{-\parskip}
+%%
+%% subsection
+\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0in}{0pt}{-\parskip}
+%%
+%% subsubsection
+\titleformat{\subsubsection}{\normalfont\bfseries}{}{0pt}{}
+\titlespacing*{\subsubsection}{0in}{0pt}{-\parskip}
+%%
+%% paragraph
+\titleformat{\paragraph}[runin]{\normalfont\bfseries}{}{0pt}{}
+\titlespacing*{\paragraph}{0in}{0pt}{5pt}
+%%
+%% subparagraph
+\titleformat{\subparagraph}[runin]{\normalfont\itshape}{}{0pt}{}
+\titlespacing*{\subparagraph}{0in}{0pt}{5pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Language-specific words
+\input{\mypath../_latexfiles/_layouts/_langspec}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Internal commands
+\input{\mypath../_latexfiles/_layouts/_intern}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hyperlink color
+\input{\mypath../_latexfiles/_layouts/_hyperlinks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figure definitions
+\input{\mypath../_latexfiles/_layouts/_figure-trb}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Contact
+%%   \createcontact
+%%     {<Name>}
+%%     {<andreas line 1>}
+%%     {<andreas line 1>}
+%%     {<andreas line 3>}
+%%     {<phone number>}
+%%     {<fax number>}
+%%     {<email address>}
+\newcommand{\createcontact}[7]{
+  \ifthenelse{\equal{#1}{}}{%
+  }{%
+    #1
+  
+    #2, #3
+  }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage definition
+\newcommand{\createtitlepage}{
+  \centering
+  \setlength{\parskip}{0pt}
+  \noindent\textbf{\MakeTextUppercase{\mytitle}}
+  
+  ~
+  
+  \ifthenelse{\equal{\myfirstauthor}{}}{}{\myfirstaddress}
+  
+  \ifthenelse{\equal{\mysecondauthor}{}}{}{\mysecondaddress}
+  
+  \ifthenelse{\equal{\mythirdauthor}{}}{}{\mythirdaddress}
+  
+  \ifthenelse{\equal{\myfourthauthor}{}}{}{\myfourthaddress}
+  
+  \ifthenelse{\equal{\myfifthauthor}{}}{}{\myfifthaddress}
+  
+  \ifthenelse{\equal{\mysixthauthor}{}}{}{\mysixthaddress}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstract definition
+\newcommand{\createabstract}[1]{
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

@@ -1,0 +1,318 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Introduction}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+This is a small overview how to write papers at the IVT in \LaTeX.
+This paper is located at \path{papers/workingpapers/recurring/template/Template.tex} 
+of the SVN repository at \url{https://repos.ivt.ethz.ch/svn/ivt/doc}.
+
+On one hand, it is a
+description of how to write such a paper, on the other hand it is also
+the example~/ template for writing \LaTeX{} papers at the IVT.
+Hence, some parts of this document are only understandable if you
+simultaneously look at the source files (\texttt{.tex} extension).
+
+If you see bugs and errors in the layout please contact
+kirill.mueller@ivt.baug.ethz.ch.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Structuring}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To structure you paper you can define several headings and
+subheadings:
+``\textbackslash{}section'', ``\textbackslash{}subsection'',
+``\textbackslash{}subsubsection'', ``\textbackslash{}paragraph'' and
+``\textbackslash{}subparagraph''. The first three will be numbered and
+will show
+up in the content. The layout defines the style of the headings.
+
+Examples of sections and subsections:
+
+\subsubsection{A subsubsection}
+
+Some text. Some text. Some text. Some text. Some text. Some text. Some
+text. Some text. Some text. Some text. Some text. Some text. Some
+text. Some text. Some text. Some text.
+
+\paragraph{A paragraph}
+
+Some text. Some text. Some text. Some text. Some text. Some text. Some
+text. Some text. Some text. Some text. Some text. Some text. Some
+text. Some text. Some text. Some text.
+
+\subparagraph{A subparagraph}
+
+Some text. Some text. Some text. Some text. Some text. Some text. Some
+text. Some text. Some text. Some text. Some text. Some text. Some
+text. Some text. Some text. Some text.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Page Break}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+There are three ways of performing a manual page break.
+\begin{itemize}
+  \item ``\textbackslash{}clearpage'': omits the remaining space of the
+current page and starts the new one. Inserting two or more times that
+command does NOT produce follow up empty pages.
+  \item ``\textbackslash{}cleardoublepage'': It does the same than the
+command above, but for a report \LaTeX\ type that define different
+layouts for the odd and even pages (i.e.\ dissertation layouts), it
+sometimes produces a complete follow up empty page such that the next
+sections will occur always on the even page (odd page, resp.)
+  \item ``\textbackslash{}include'': This is another way to start on a
+new page. If you use the ``\textbackslash{}include''
+command for separating a paper
+into different \texttt{.tex} files,
+``\textbackslash{}include'' will always start on
+top of the next page. If you do not want that, but still want to
+separate the paper into different files,
+use the ``\textbackslash{}input''
+command instead.
+\end{itemize}
+
+\clearpage
+
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Text Blocks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A newline (one time ``Return'') does NOT produce a new Block.
+You have to separate blocks with a COMPLETE EMPTY line.
+
+Hence, it is a good idea to insert hard line breaks frequently,
+e.g.~after commas or full stops.
+Most version control systems such as SVN are line-based;
+changes can be tracked easier if a paragraph is split
+over several lines.
+By the same token, it is not a good idea to let your text editor
+manage the line breaks for you.
+
+This is a block. This is a block. This is a block. This is a block.
+This is a block. This is a block. This is a block. This is a block.
+This is a block. This is a block. This is a block. This is a block.
+This is a block. This is a block. This is a block.
+
+This is another block. This is another block. This is another block.
+This is another block. This is another block. This is another block.
+This is another block. This is another block. This is another block.
+This is another block. This is another block. This is another block.
+This is another block. This is another block. This is another block.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lists}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+There are three ways of making lists:
+
+\subsubsection{Items}
+
+\begin{itemize}
+  \item Item one
+  \begin{itemize}
+    \item Item one
+    \item Item two Item two Item two Item two Item two Item two Item
+    two Item two
+    Item two Item two Item two Item two Item two Item two Item
+    two Item two
+    \item Item three
+  \end{itemize}
+  \item Item two Item two Item two Item two Item two Item two Item two
+Item twoItem two Item two Item two Item two Item two Item two Item two
+Item two
+  \item Item three
+\end{itemize}
+
+\subsubsection{Enumerations}
+
+\begin{enumerate}
+  \item Item one
+  \begin{enumerate}
+    \item Item one
+    \item Item two Item two Item two Item two Item two Item two Item
+two Item twoItem two Item two Item two Item two Item two Item two Item
+two Item two
+    \item Item three
+  \end{enumerate}
+  \item Item two Item two Item two Item two Item two Item two Item two
+Item twoItem two Item two Item two Item two Item two Item two Item two
+Item two
+  \item Item three
+\end{enumerate}
+
+\subsubsection{Descriptive list}
+
+\begin{description}
+  \item[Desc one] Item one
+  \begin{description}
+    \item[Desc one] Item one
+    \item[Desc two] Item two Item two Item two Item two Item two Item
+two Item two Item two Item two Item two Item two Item two Item two
+Item two Item two Item two Item two
+    \item[Desc three] Item three
+  \end{description}
+  \item[Desc two] Item two Item two Item two Item two Item two Item
+two Item two Item two Item two Item two Item two Item two Item two
+Item two Item two Item two Item two
+  \item[Desc three] Item three
+\end{description}
+
+\subsubsection{Sub-Lists}
+
+List can be nested in any fashion you like:
+
+\begin{itemize}
+  \item Item one
+  \begin{itemize}
+    \item Item one
+    \item Item two
+    \item Item three
+  \end{itemize}
+  \item Item three
+  \begin{enumerate}
+    \item Item one
+    \begin{description}
+      \item[Desc one] Item one
+      \item[Desc two] Item two Item two Item two Item two Item two
+Item two Item two Item two Item two Item two Item two Item two Item
+two Item two Item two Item two Item two
+      \begin{itemize}
+        \item Item one
+        \item Item two Item two Item two Item two Item two Item
+        two Item two Item two Item two Item two Item two Item two
+        Item two Item
+        two Item two Item two Item twoItem two
+        \item Item three
+      \end{itemize}
+      \item[Desc three] Item three
+      \begin{enumerate}
+        \item Item one
+        \item Item two Item two Item two Item two Item two Item two
+        Item two Item two Item two Item two Item two Item two
+        Item two Item
+        two Item two Item two Item two Item two Item two Item two Item two Item
+        two
+        \item Item three
+      \end{enumerate}
+    \end{description}
+    \item Item two
+    \item Item three
+  \end{enumerate}
+  \item Item four
+\end{itemize}
+
+
+\subsubsection{In-paragraph lists}
+
+This is if you want to spend less space in your paper,
+provided by the ``paralist'' package.
+These cannot be nested,
+but converting them to a proper list later is easy:
+
+\begin{inparaenum}[(a)]
+  \item Item one
+  \item Item two
+  \item Item three
+\end{inparaenum}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Text appearance}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+There are also more commands to change the appearance of text.
+However, underlining and letter-spacing
+is not recommended when writing papers.
+Some even consider bold-face as bad practice, as it changes
+the ``average greyness'' of the text
+(as does underlining and letter-spacing).
+
+\subsubsection{Bold, etc.}
+
+\emph{Emphasis (instead of italic)}, \textbf{Bold},
+\textsc{Small caps}, \textbf{\textit{Bold italics}},
+\texttt{Teletype}, \textsf{Sans serif}.
+
+\subsubsection{URL}
+
+To write an url type: \url{www.ivt.ethz.ch}.
+The PDF will contain a link to that URL.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Special Characters}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Large Space}
+
+Two sentence are separated with a large empty space. For dots used in
+acronyms (``i.e.'' or ``e.g.'') followed by an empty space, you do not
+want this extra large space. In this case you should add a backslash
+after the dot
+or use non-breaking space (see below).
+Example:
+
+A fact, e.g.\ an example.
+
+\subsubsection{Quotation Mark}
+
+Quotation marks: ``text to be quoted'', also in `single quotes'.
+
+\subsubsection{Dashes}
+
+There are three types of dashes:
+\begin{description}
+  \item[Hyphen Dash] agent-based
+  \item[Range Dash] page 123--138
+  \item[em Dash] bla bla---thinking---bla bla
+\end{description}
+
+\subsubsection{Predefined special characters}
+
+Some characters are used for special functions. If you want to write
+them use the following substitutions:
+
+\$
+\&
+\%
+\#
+\{
+\}
+%
+\S{}
+\pounds{}
+\textbackslash{}
+\textasciitilde{}
+\textasciicircum{}
+%
+?`
+!`
+
+There are a lot more special characters, especially for formulas.
+You will find a fairly good overview in
+\href{http://www.ctan.org/tex-archive/info/lshort/english/lshort.pdf}{\texttt{lshort.pdf}}.
+This is by the way a good reference for many questions concerning \LaTeX{}.
+
+\subsubsection{Non-breaking space}
+
+Sometimes, you do not want that two words are split at a line ending.
+To prevent this use the ``tilde'' character. Example:
+
+6~AM 6~AM 6~AM 6~AM 6~AM 6~AM 6~AM 6~AM 6~AM 6~AM 6~AM 6~AM 6~AM 6~AM
+6~AM 6~AM
+
+versus
+
+6 AM 6 AM 6 AM 6 AM 6 AM 6 AM 6 AM 6 AM 6 AM 6 AM 6 AM 6 AM 6 AM 6 AM
+6 AM 6 AM
+
+\subsubsection{Ligatures}
+
+Take a closer look at the words ``affluent'', ``effective'' and ``flow''.
+The joining of the f and l letters
+happens automatically; however in rare occasions 
+you may want to
+suppress this, like for ``shelf{}ful''.

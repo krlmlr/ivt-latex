@@ -1,0 +1,179 @@
+% !TeX encoding = usascii
+% Prepare to get rid of \mypath one day
+\providecommand\mypath[3]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% IVT GENERIC PAPER LAYOUT
+%% Date: 2012-12-12
+%% author:
+%%   Kirill M\"uller, kirill.mueller@ivt.baug.ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Standard latex layout configurations
+%%   Here, commands and settings are use which are available
+%%   by the latex packages
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Type of document:
+%% - Paperformat: letterpaper, a4paper, a5paper, b5paper,
+%%   executivepaper, legalpaper
+%% - Main font size: 10pt, 11pt, 12pt
+%% - Formulae setting: - (centred), fleqn (left-aligned)
+%% - Numbering of formulae: - (right-aligned), leqno (left-aligned)
+%% - New page after title: titlepage, notitlepage
+%% - Number of columns per page: onecolumn, twocolumn
+%% - Page style: oneside, twoside
+%% - Paper rotation: - (protrait), landscape
+%% - Chapter start: openright, openany
+%% - Mark overfull boxes: draft, final
+\providecommand{\mydocumentclass}{
+  \documentclass[a4paper,12pt,fleqn,titlepage,onecolumn,oneside,openany,final]{article}
+}
+\mydocumentclass
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Package options
+\PassOptionsToPackage{disable}{todonotes}
+\PassOptionsToPackage{fleqn}{amsmath}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Include default packages and settings
+%%   requires \mypagestyle
+\input{\mypath../_latexfiles/_layouts/_packages}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\mypagestyle}{empty}
+%% citation style:
+\providecommand{\mybibstyle}{
+  \setcitestyle{authoryear,round}%
+  \ifthenelse{\equal{\myfirstlang}{german}}{%
+    \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-ger}%
+  }{%
+    \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-eng}%
+  }
+}%
+\mybibstyle%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the depth of numbering parts,chapter,sections and paragraphs:
+%%   Numbers representing the depth of sectional units:
+%%   -1 = \part    (in book or report document classes)
+%%    0 = \chapter (in book or report document classes)
+%%    0 = \part    (in article document classes)
+%%    1 = \section
+%%    2 = \subsection
+%%    3 = \subsubsection
+%%    4 = \paragraph
+%%    5 = \subparagraph
+\setcounter{secnumdepth}{3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% no indentation for formulas:
+\setlength\mathindent{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% one-half line spacing
+\onehalfspacing
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Language-specific words
+\input{\mypath../_latexfiles/_layouts/_langspec}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Internal commands
+\input{\mypath../_latexfiles/_layouts/_intern}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hyperlink color
+\input{\mypath../_latexfiles/_layouts/_hyperlinks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figure definitions
+\newcommand{\figurerule}{}
+\input{\mypath../_latexfiles/_layouts/_figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Contact
+%%   \createcontact
+%%     {<Name>}
+%%     {<andreas line 1>}
+%%     {<andreas line 1>}
+%%     {<andreas line 3>}
+%%     {<phone number>}
+%%     {<fax number>}
+%%     {<email address>}
+\providecommand{\createcontact}[7]{{%
+  \noindent%
+  {%
+    \raggedright{}%
+    #1\newline
+    #2\newline
+    #3\newline
+    #4\newline
+    \wordphone: #5\newline
+    \wordfax: #6\newline
+    #7\newline
+  }
+}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage macros
+\providecommand{\mytitlepagedate}{\wordmonth~\myyear}
+\providecommand{\myinterninstitutionforabstract}{\interninstitution & \\}
+\providecommand{\myinterncitation}{
+    \ifne\interncitation{
+        \vspace{0.25in} \textbf{\sffamily\Large \wordprefcit} \\
+        \interncitation
+    }
+}
+\providecommand{\mytitlefigureboxheight}{9cm}
+\providecommand{\mylogos}{%
+\begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}%
+\includegraphics[width=2.5in]{\mypath../_latexfiles/logos/ivt-logo} & \includegraphics[width=2.5in]{\mypath../_latexfiles/logos/eth-logo} \\
+\end{tabular*}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage definition
+\providecommand{\createtitlepage}{
+  \begin{titlepage}
+    \title{\mytitle}
+    \author{\internauthorstringlong}
+    \date{\mytitlepagedate}
+    
+    \maketitle
+  \end{titlepage}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstract definition
+\providecommand{\createabstract}[1]{%
+ {
+  \myfirstaddress%
+  
+  \mysecondaddress%
+  
+  \mythirdaddress%
+  
+  \myfourthaddress%
+  
+  \myfifthaddress%
+  
+  \mysixthaddress%
+  
+  \ifne{#1}{%
+    \begin{abstract}
+      #1
+    \end{abstract}
+  }
+
+  \ifthenelse{\equal{\internkeywords}{}}{}{
+    \noindent \wordkeywords: \internkeywords
+  }
+
+  \myinterncitation
+ }
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

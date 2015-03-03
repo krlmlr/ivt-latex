@@ -1,0 +1,26 @@
+% !TeX encoding = usascii
+% Prepare to get rid of \mypath one day
+\providecommand\mypath[3]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id: snf.tex 4444 2011-04-07 07:30:40Z muelleki $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% IVT WORKING PAPER LAYOUT (BASED ON IVT GENERIC LAYOUT)
+%% Date: 2010-08-06
+%% author:
+%%   Kirill M\"uller, muelleki@ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mybibstyle}{%
+  \setcitestyle{authoryear,round}%
+  \ifthenelse{\equal{\myfirstlang}{german}}{%
+    \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-reflist-ger}%
+  }{%
+    \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-reflist-eng}%
+  }
+}
+\input{\mypath../_latexfiles/_layouts/ivt-generic}
+

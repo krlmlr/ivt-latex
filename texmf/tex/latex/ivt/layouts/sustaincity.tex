@@ -1,0 +1,66 @@
+% !TeX encoding = usascii
+% Prepare to get rid of \mypath one day
+\providecommand\mypath[3]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id: ivt-wp.tex,v 1.18 2010/08/06 09:19:30 muelleki Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% STRC (BASED ON IVT KOMA LAYOUT)
+%% Date: 2010-08-06
+%% author:
+%%   Kirill M\"uller, muelleki@ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\createtitlepage}{
+  \begin{titlepage}
+    \sffamily
+    \hrule
+    \noindent\parbox[][9cm][c]{\textwidth}{
+      \ifthenelse
+        {\equal{\mytitlefigure}{}}
+        {}
+        {\begin{center}\includegraphics[width=\textwidth,totalheight=9cm,keepaspectratio=true]{\mytitlefigure}\end{center}}
+    }
+    \vspace{0.1in}
+
+    \hrule
+
+    \vspace{0.2in}
+
+    \begin{flushleft}
+    \noindent\large\textbf{\mydeliverable} \linebreak
+    \vspace{0.1in}
+    \noindent\LARGE\textbf{\mytitle}
+    \end{flushleft}
+
+    \vspace{0.3in}
+
+    \noindent\parbox[][3cm][l]{\textwidth}{
+      \large\textbf{\internauthorlist}
+    }
+
+    \vfill
+
+    \noindent
+    \begin{singlespace}
+    \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+      \large\textbf{\interninstitution} & \large{Revision: \myrev}
+    \end{tabular*}
+      
+    \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+      \large\textbf{FP7-244557} & \large{\myday/\mymonth/\myyear} \\
+    \end{tabular*}
+    \end{singlespace}
+
+    \noindent
+    \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+      \includegraphics[width=9.4cm]{\mypath../_latexfiles/logos/sc-logo}%
+      &%
+      \includegraphics[width=5.34cm]{\mypath../_latexfiles/logos/fp7-logo}
+    \end{tabular*}
+  \end{titlepage}
+}
+\input{\mypath../_latexfiles/_layouts/ivt-generic}

@@ -1,0 +1,184 @@
+% !TeX encoding = usascii
+% Prepare to get rid of \mypath one day
+\providecommand\mypath[3]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% WCTR 2010 PAPER LAYOUT
+%% author:
+%%   Konrad Meister, meister@ivt.baug.ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Standard latex layout configurations
+%%   Here, commands and settings are use which are available
+%%   by the latex packages
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Type of document:
+%% - Paperformat: letterpaper, a4paper, a5paper, b5paper,
+%%   executivepaper, legalpaper
+%% - Main font size: 10pt, 11pt, 12pt
+%% - Formulae setting: - (centred), fleqn (left-aligned)
+%% - Numbering of formulae: - (right-aligned), leqno (left-aligned)
+%% - New page after title: titlepage, notitlepage
+%% - Number of columns per page: onecolumn, twocolumn
+%% - Page style: oneside, twoside
+%% - Paper rotation: - (protrait), landscape
+%% - Chapter start: openright, openany
+%% - Mark overfull boxes: draft, final
+\documentclass[a4paper,11pt,fleqn,notitlepage,onecolumn,oneside,final]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% borders, margins and offset
+\usepackage[top=0.5in,hmargin=1.0in,headsep=0.46in,footskip=0.46in,includeheadfoot]{geometry}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Package options
+\PassOptionsToPackage{footnotesize,format=hang}{caption}
+\PassOptionsToPackage{fleqn}{amsmath}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Include default packages and settings
+\input{\mypath../_latexfiles/_layouts/_packages}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Header and footer definition:
+\usepackage{fancyhdr}%
+\pagestyle{fancy}%
+\fancyhf{}%
+%\setlength{\headheight}{35pt}
+%\setlength{\footheight}{0.04in}
+\fancyhead[C]{\small \squelch{\textit{\mytitle} \\ \textit{\internauthorstring}}}%
+\fancyfoot[C]{\small \squelch{\textit{12\textsuperscript{th} WCTR, July 11-15, 2010 -- Lisbon, Portugal} \vspace{\baselineskip} \\ \thepage}}%
+\renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\footrulewidth}{0pt}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% paragraph settings:
+\setlength{\parindent}{0in}%
+\setlength{\parskip}{10pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% caption settings:
+\setlength{\abovecaptionskip}{0.0in}
+\setlength{\belowcaptionskip}{0.0in}
+\usepackage[footnotesize,format=hang]{caption}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the depth of numbering parts,chapter,sections and paragraphs:
+%%   Numbers representing the depth of sectional units:
+%%   -1 = \part    (in book or report document classes)
+%%    0 = \chapter (in book or report document classes)
+%%    0 = \part    (in article document classes)
+%%    1 = \section
+%%    2 = \subsection
+%%    3 = \subsubsection
+%%    4 = \paragraph
+%%    5 = \subparagraph
+\setcounter{secnumdepth}{0}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% citation style:
+\setcitestyle{authoryear,round}%
+\ifthenelse{\equal{\myfirstlang}{german}}{%
+  \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-ger}%
+}{%
+  \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-eng}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Helvetica font:
+\input{\mypath../_latexfiles/_layouts/_font-helvetica}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% one-half line spacing
+\onehalfspacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% no indentation for formulas:
+\setlength\mathindent{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% heading settings:
+%%   Reformatting the headings with
+%%   \@startsection{name}{level}{indent}{beforeskip}{afterskip}{style}
+%%   Notes:
+%%   a negative 'beforeskip' causes no indentation of the
+%%     following paragraph (weird, but true)
+%%   a negative 'afterskip' causes a run-in heading (paragraphs)
+%%
+%% section
+\makeatletter
+\renewcommand\section{\@startsection
+  {section}{1}{0in}{0.25in}{0.25in}{\Large\bf\MakeUppercase}}%
+\makeatother
+%%
+%% subsection
+\makeatletter
+\renewcommand\subsection{\@startsection
+ {subsection}{2}{0in}{0.33in}{0.17in}{\large\bf}}%
+\makeatother
+%%
+%% subsubsection
+\makeatletter
+\renewcommand\subsubsection{\@startsection
+ {subsubsection}{3}{0in}{0.33in}{0.17in}{\large\itshape}}%
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Language-specific words
+\input{\mypath../_latexfiles/_layouts/_langspec}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Internal commands
+\input{\mypath../_latexfiles/_layouts/_intern}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hyperlink color
+\input{\mypath../_latexfiles/_layouts/_hyperlinks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figure definitions
+\input{\mypath../_latexfiles/_layouts/_figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Contact
+%%   \createcontact
+%%     {<Name>}
+%%     {<andreas line 1>}
+%%     {<andreas line 1>}
+%%     {<andreas line 3>}
+%%     {<phone number>}
+%%     {<fax number>}
+%%     {<email address>}
+\newcommand{\createcontact}[7]{
+  \ifthenelse{\equal{#1}{}}{%
+    \noindent\parbox[t][][l]{0.31\textwidth}{
+    }%
+  }{%
+    \noindent\parbox[t][][l]{0.31\textwidth}{
+      #1\newline
+      #2\newline
+      #3\newline
+      #4\newline
+      \wordphone: #5\newline
+      \wordfax: #6\newline
+      #7\newline
+    }%
+  }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage definition
+\newcommand{\createtitlepage}{
+\thispagestyle{plain}
+%\vspace*{0.33in}
+\begin{center}
+{\Large\textbf{\MakeUppercase\mytitle}}
+\end{center}
+%\vspace{0.67in}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstract definition
+\newcommand{\createabstract}[1]{
+
+   \section{\abstractname}
+   #1
+
+  \textit{\wordkeywords: \internkeywords}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

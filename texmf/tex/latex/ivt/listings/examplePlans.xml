@@ -1,0 +1,27 @@
+<plans name="example plans file" xml:lang="de-CH"> ...
+	<person id="393241" age="37" income="50000">
+		<knowledge>
+			<activity type="work">
+				<location type="link" id="844">
+					<capacity value="180" />
+					<opentime day="wkday" start_time="07:00:00" end_time="20:00:00" />
+					<opentime day="sat" start_time="07:00:00" end_time="16:00:00" />
+				</location>
+				...
+			</activity>
+			...
+		</knowledge>
+		<plan>
+			<act type="home" link="58" start_time="00:00" dur="07:00" end_time="07:00" />
+			<leg mode="car" dept_time="07:00" trav_time="00:25" arr_time="07:25">
+				<route>1932 1933 1934 1947</route>
+			</leg>
+			<act type="work" link="844" start_time="07:25" dur="09:00" end_time="16:25" />
+			<leg mode="car" dept_time="16:25" trav_time="00:14" arr_time="16:39">
+				<route>1934 1933</route>
+			</leg>
+			<act type="home" link="58" start_time="16:39" dur="07:21" end_time="24:00" />
+		</plan>
+	</person>
+	...
+</plans>

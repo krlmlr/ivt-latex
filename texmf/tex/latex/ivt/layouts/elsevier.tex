@@ -1,0 +1,78 @@
+% !TeX encoding = usascii
+% Prepare to get rid of \mypath one day
+\providecommand\mypath[3]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% IVT GENERIC PAPER LAYOUT FOR KOMA SCRIPT
+%% Date: 2010-04-05
+%% author:
+%%   Kirill M\"uller, muelleki@ivt.baug.ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Standard latex layout configurations
+%%   Here, commands and settings are use which are available
+%%   by the latex packages
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Type of document:
+%% - Paperformat: letterpaper, a4paper, a5paper, b5paper,
+%%   executivepaper, legalpaper
+%% - Main font size: 10pt, 11pt, 12pt
+%% - Formulae setting: - (centred), fleqn (left-aligned)
+%% - Numbering of formulae: - (right-aligned), leqno (left-aligned)
+%% - New page after title: titlepage, notitlepage
+%% - Number of columns per page: onecolumn, twocolumn
+%% - Page style: oneside, twoside
+%% - Paper rotation: - (protrait), landscape
+%% - Chapter start: openright, openany
+%% - Mark overfull boxes: draft, final
+\providecommand{\mydocumentclass}{
+  \providecommand{\myelsarticleoptions}{}%
+  \documentclass[\myelsarticleoptions]{elsarticle}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Header and footer definition:
+\newcommand{\myheaderfooterdef}{}
+\newcommand{\mypagestyle}{plain}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% template-specific title and TOC settings:
+\newcommand{\mysettings}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage and abstract definition
+%% The elsarticle.cls includes the abstract in the title page
+%% Hence, we wait until the \createabstract command before displaying
+%% the title page
+\newcommand{\createtitlepage}{}%
+\newcommand{\createcontact}[7]{%
+    #2, #3, #4, \wordphone: #5, \wordfax: #6
+}%
+\newcommand{\createabstract}[1]{%
+\title{\mytitle}%
+\author{\myfirstauthor}\ead{\myfirstauthoremail}%
+\ifthenelse{\equal{\mysecondauthor}{}}{}{\author{\mysecondauthor}\ead{\mysecondauthoremail}}%
+\ifthenelse{\equal{\mythirdauthor}{}}{}{\author{\mythirdauthor}\ead{\mythirdauthoremail}}%
+\ifthenelse{\equal{\myfourthauthor}{}}{}{\author{\myfourthauthor}\ead{\myfourthauthoremail}}%
+\ifthenelse{\equal{\myfifthauthor}{}}{}{\author{\myfifthauthor}\ead{\myfifthauthoremail}}%
+\ifthenelse{\equal{\mysixthauthor}{}}{}{\author{\mysixthauthor}\ead{\mysixthauthoremail}}%
+\address{\myfirstaddress}%
+\begin{keyword}%
+\mykeywordsEN%
+\end{keyword}%
+\begin{abstract}#1\end{abstract}%
+\maketitle%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Input base file
+\input{\mypath../_latexfiles/_layouts/ivt-generic-base}
+
+

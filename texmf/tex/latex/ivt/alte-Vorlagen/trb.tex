@@ -1,0 +1,214 @@
+%% DxH 6.3.2014
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% TRB PAPER LAYOUT
+%% Date: 2007-06-28
+%% author:
+%%   Michael Balmer, balmer@ivt.baug.ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Standard latex layout configurations
+%%   Here, commands and settings are use which are available
+%%   by the latex packages
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Type of document:
+%% - Paperformat: letterpaper, a4paper, a5paper, b5paper,
+%%   executivepaper, legalpaper
+%% - Main font size: 10pt, 11pt, 12pt
+%% - Formulae setting: - (centred), fleqn (left-aligned)
+%% - Numbering of formulae: - (right-aligned), leqno (left-aligned)
+%% - New page after title: titlepage, notitlepage
+%% - Number of columns per page: onecolumn, twocolumn
+%% - Page style: oneside, twoside
+%% - Paper rotation: - (protrait), landscape
+%% - Chapter start: openright, openany (not required for oneside layout)
+%% - Mark overfull boxes: draft, final
+% dxh \documentclass[12pt,fleqn,titlepage,onecolumn,oneside,final]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% borders, margrins and offset
+\usepackage[a4paper,left=1.0in,right=1.0in,top=1.0in,bottom=1.0in]{geometry}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Package options
+\PassOptionsToPackage{nooneline,font=bf,labelsep=quad,format=hang}{caption}
+\PassOptionsToPackage{font=small,labelsep=space}{subcaption}
+\PassOptionsToPackage{fleqn}{amsmath}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Include default packages and settings
+\input{_packages}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Header and footer definition:
+\usepackage{fancyhdr}%
+\newcommand{\mypagestyle}{fancy}
+\fancyhf{}%
+\fancyhead[R]{\footnotesize \squelch{\nouppercase{\thepage}}}%
+\fancyhead[L]{\footnotesize \squelch{\nouppercase{\internauthorstring}}}%
+\renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\footrulewidth}{0pt}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% paragraph settings:
+\setlength{\parindent}{\parindent}%
+\setlength{\parskip}{6pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% caption settings:
+\DeclareCaptionLabelFormat{allcaps}{\MakeUppercase{#1\ #2}}
+\captionsetup*{labelformat=allcaps}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the depth of numbering parts,chapter,sections and paragraphs:
+%%   Numbers representing the depth of sectional units:
+%%   -1 = \part    (in book or report document classes)
+%%    0 = \chapter (in book or report document classes)
+%%    0 = \part    (in article document classes)
+%%    1 = \section
+%%    2 = \subsection
+%%    3 = \subsubsection
+%%    4 = \paragraph
+%%    5 = \subparagraph
+\setcounter{secnumdepth}{3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% citation style:
+\setcitestyle{numbers}
+\bibpunct{\textit\bgroup(}{)\egroup}{,}{n}{,}{,}
+\providecommand{\citenumfont}[1]{\@empty}
+\renewcommand{\citenumfont}[1]{\textit{#1}}
+\renewcommand{\bibnumfmt}[1]{#1.}
+\ifthenelse{\equal{\myfirstlang}{german}}{%
+  \bibliographystyle{styles/template_ivt-unsrt-ger}%
+}{%
+  \bibliographystyle{styles/template_ivt-unsrt-eng}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% no indentation for formulae:
+\setlength\mathindent{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Times font
+\input{_font-times}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% single line spacing
+\singlespacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% heading settings:
+%%   now using the titlesec package
+%%
+%% legacy (match appearance of previous version)
+\newlength{\sectionbeforedist}
+\setlength{\sectionbeforedist}{\parskip}
+\addtolength{\sectionbeforedist}{1.16ex}
+%%
+%% section
+\titleformat{\section}{\normalfont\bfseries}{}{0pt}{\MakeUppercase}
+\titlespacing*{\section}{0in}{\sectionbeforedist}{0.001pt}
+%%
+%% subsection
+\titleformat{\subsection}{\normalfont\bfseries}{}{0pt}{}
+\titlespacing*{\subsection}{0in}{\sectionbeforedist}{0.001pt}
+%%
+%% subsubsection
+\titleformat{\subsubsection}{\normalfont\itshape}{}{0pt}{}
+\titlespacing*{\subsubsection}{0in}{\sectionbeforedist}{0.001pt}
+%%
+%% paragraph
+\titleformat{\paragraph}[runin]{\normalfont\bfseries}{}{0pt}{}
+\titlespacing*{\paragraph}{0in}{\sectionbeforedist}{5pt}
+%%
+%% subparagraph
+\titleformat{\subparagraph}[runin]{\normalfont\itshape}{}{0pt}{}
+\titlespacing*{\subparagraph}{0in}{\sectionbeforedist}{5pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Language-specific words
+\input{_langspec}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Internal commands
+\input{_intern}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hyperlink color
+\input{_hyperlinks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figure definitions
+\input{_figure-trb}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Contact
+%%   \createcontact
+%%     {<Name>}
+%%     {<andreas line 1>}
+%%     {<andreas line 1>}
+%%     {<andreas line 3>}
+%%     {<phone number>}
+%%     {<fax number>}
+%%     {<email address>}
+\newcommand{\createcontact}[7]{
+  \ifthenelse{\equal{#1}{}}{%
+    \parbox[t][][l]{\textwidth}{
+    }%
+  }{%
+    \parbox[t][][l]{\textwidth}{
+      \raggedright%
+      #1\newline
+      #2, #3, #4\newline
+      \wordphone: #5\newline
+      \wordfax: #6\newline
+      #7\newline
+    }%
+  }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage definition
+\newcommand{\createtitlepage}{
+  \begin{titlepage}
+    \setcounter{page}{0}
+    \setlength\parindent{0pt}%
+    \raggedright%
+    \textbf{\mytitle}
+
+    \vspace{0.1in}
+
+    Date of submission: \myyear-\nummonth-\myday
+
+    \vspace{0.1in}
+
+    \ifthenelse{\equal{\myfirstauthor}{}}{}{\myfirstaddress}
+
+    \ifthenelse{\equal{\mysecondauthor}{}}{}{\mysecondaddress}
+
+    \ifthenelse{\equal{\mythirdauthor}{}}{}{\mythirdaddress}
+
+    \ifthenelse{\equal{\myfourthauthor}{}}{}{\myfourthaddress}
+
+    \ifthenelse{\equal{\myfifthauthor}{}}{}{\myfifthaddress}
+
+    \ifthenelse{\equal{\mysixthauthor}{}}{}{\mysixthaddress}
+
+    \vspace{0.1in}
+
+    Words: \mywordcount
+
+    \vfill
+  \end{titlepage}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstract definition
+\newcommand{\createabstract}[1]{
+  \section{\abstractname}
+
+  #1
+
+  \vfill
+
+  \eject
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Custom reference command to support reference by name
+\newcommand{\ncref}[1]{\lcnamecref{#1}~\emph{\nameref{#1}}\xspace}

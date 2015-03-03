@@ -1,0 +1,52 @@
+% !TeX encoding = usascii
+% Prepare to get rid of \mypath one day
+\providecommand\mypath[3]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id: ivt-wp.tex,v 1.18 2010/08/06 09:19:30 muelleki Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% IATBR (BASED ON IVT KOMA LAYOUT)
+%% Date: 2012-06-01
+%% author:
+%%   Kirill M\"uller, muelleki@ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mydocumentclass}{
+  \ifdefined\wcFileName
+    \documentclass[a4paper,12pt,fleqn,titlepage,onecolumn,oneside,final,bibliography=totoc,numbers=noenddot]{article}
+  \else
+    \documentclass[a4paper,12pt,fleqn,titlepage,onecolumn,oneside,final,bibliography=totoc,numbers=noenddot,parskip=full]{scrartcl}
+  \fi
+}
+
+\newcommand{\mylogos}{
+    \noindent
+    \begin{singlespace}
+    	\begin{tabular*}{\textwidth}{@{}l@{}}
+      	\includegraphics[width=\textwidth]{\mypath../_latexfiles/logos/iatbr-logo-\myyear}
+      \end{tabular*}
+    \end{singlespace}
+}
+
+\newcommand{\figurecaptionandcontents}[2]{#2#1}
+\newcommand{\tablecaptionandcontents}[2]{#1#2}
+\newcommand{\figurerule}{}
+\newcommand{\myheaderfooterdef}{}
+\newcommand{\mypagestyle}{plain}
+\newcommand{\mytitlefigureboxheight}{8cm}
+\newcommand{\mytitlepagedate}{}
+\newcommand{\myinterninstitutionforabstract}{}
+\newcommand{\interncitation}{%
+  \internauthorstring%
+  (\myyear) \mytitle, paper presented at the \emph{13th International 
+  Conference on Travel Behaviour Research},
+  Toronto, July 2012.
+}
+
+\input{\mypath../_latexfiles/_layouts/ivt-generic}
+
+\singlespacing
+\geometry{a4paper,left=1.25in,right=1.25in,top=1in,bottom=1in,ignorehead,includefoot}

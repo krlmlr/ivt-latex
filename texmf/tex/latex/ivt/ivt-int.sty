@@ -1,0 +1,312 @@
+% !TeX encoding = usascii
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% The following defines other internal commands
+%%   Internal command are not used by the main file.
+%%   Internal commands always starts with '\internal'
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% user defined german keywords/user defined english keywords
+%%   The command only returns a string which are defined by the
+%%   main file (\mykeywordsEN or \mykeywordsDE)
+\newcommand{\internkeywords}{\iflanguage{english}{\mykeywordsEN}{\iflanguage{german}{\mykeywordsDE}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% papertype definition
+%%   i.e. working paper/Arbeitsberichte Verkehrs- und Raumplanung
+%%   i.e. disseration/Doktorarbeit
+\providecommand{\internpapertype}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% user defined german institution/user defined english institution
+%%   The command only returns a string which are defined by the
+%%   main file (\myinstitutionEN or \myinstitutionDE)
+\newcommand{\interninstitution}{\iflanguage{english}{\myinstitutionEN}{\iflanguage{german}{\myinstitutionDE}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% authorlist
+%%   prints out all the given author in a specified way
+\newcommand{\internauthorlist}{%
+  \providecommand{\myseventhauthor}{}%
+  \providecommand{\myeighthauthor}{}%
+  \providecommand{\myninthauthor}{}%
+  \providecommand{\mytenthauthor}{}%
+  \providecommand{\myeleventhauthor}{}%
+  \providecommand{\mytwelfthauthor}{}%
+  \ifthenelse{\equal{\myseventhauthor}{}}{%
+  \ifthenelse{\equal{\myfirstauthor}{}}{}{\myfirstauthor}%
+  \ifthenelse{\equal{\mysecondauthor}{}}{}{\newline\mysecondauthor}%
+  \ifthenelse{\equal{\mythirdauthor}{}}{}{\newline\mythirdauthor}%
+  \ifthenelse{\equal{\myfourthauthor}{}}{}{\newline\myfourthauthor}%
+  \ifthenelse{\equal{\myfifthauthor}{}}{}{\newline\myfifthauthor}%
+  \ifthenelse{\equal{\mysixthauthor}{}}{}{\newline\mysixthauthor}%
+  }%
+  {%
+  \begin{tabular}{@{}ll@{}}
+  \myfirstauthor & \mysecondauthor \\
+  \mythirdauthor & \myfourthauthor \\
+  \myfifthauthor & \mysixthauthor \\
+  \myseventhauthor & \myeighthauthor \\
+  \myninthauthor & \mytenthauthor \\
+  \myeleventhauthor & \mytwelfthauthor \\
+  \end{tabular}%
+  }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% author names as a single line
+\newcommand{\internauthorstringlong}{%
+  \providecommand{\myseventhauthor}{}%
+  \providecommand{\myeighthauthor}{}%
+  \providecommand{\myninthauthor}{}%
+  \providecommand{\mytenthauthor}{}%
+  \providecommand{\myeleventhauthor}{}%
+  \providecommand{\mytwelfthauthor}{}%
+  \ifthenelse{\equal{\myfirstauthor}{}}{}{%
+    \myfirstauthor%
+    \ifthenelse{\equal{\mysecondauthor}{}}{}{%
+      \ifthenelse{\equal{\mythirdauthor}{}}{\ \wordand}{,}
+      \mysecondauthor%
+      \ifthenelse{\equal{\mythirdauthor}{}}{}{%
+        \ifthenelse{\equal{\myfourthauthor}{}}{\ \wordand}{,}
+        \mythirdauthor%
+        \ifthenelse{\equal{\myfourthauthor}{}}{}{%
+          \ifthenelse{\equal{\myfifthauthor}{}}{\ \wordand}{,}
+          \myfourthauthor%
+          \ifthenelse{\equal{\myfifthauthor}{}}{}{%
+            \ifthenelse{\equal{\mysixthauthor}{}}{\ \wordand}{,}
+            \myfifthauthor%
+            \ifthenelse{\equal{\mysixthauthor}{}}{}{%
+              \ifthenelse{\equal{\myseventhauthor}{}}{\ \wordand}{,}
+              \mysixthauthor%
+              \ifthenelse{\equal{\myseventhauthor}{}}{}{%
+                \ifthenelse{\equal{\myeighthauthor}{}}{\ \wordand}{,}
+                \myseventhauthor%
+                \ifthenelse{\equal{\myeighthauthor}{}}{}{%
+                  \ifthenelse{\equal{\myninthauthor}{}}{\ \wordand}{,}
+                  \myeighthauthor%
+                  \ifthenelse{\equal{\myninthauthor}{}}{}{%
+                    \ifthenelse{\equal{\mytenthauthor}{}}{\ \wordand}{,}
+                    \myninthauthor%
+                    \ifthenelse{\equal{\mytenthauthor}{}}{}{%
+                      \ifthenelse{\equal{\myeleventhauthor}{}}{\ \wordand}{,}
+                      \mytenthauthor%
+                      \ifthenelse{\equal{\myeleventhauthor}{}}{}{%
+                        \ifthenelse{\equal{\mytwelfthauthor}{}}{\ \wordand}{,}
+                        \myeleventhauthor%
+                        \ifthenelse{\equal{\mytwelfthauthor}{}}{}{%
+                          \ifthenelse{\equal{}{}}{\ \wordand}{,}
+                          \mytwelfthauthor%
+                        }%
+                      }%
+                    }%
+                  }%
+                }%
+              }%
+            }%
+          }%
+        }%
+      }%
+    }%
+  }%
+  \ 
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% author names as a single line, abbreviated
+\newcommand{\internauthorstring}{%
+  \providecommand{\myseventhauthorREF}{}%
+  \providecommand{\myeighthauthorREF}{}%
+  \providecommand{\myninthauthorREF}{}%
+  \providecommand{\mytenthauthorREF}{}%
+  \providecommand{\myeleventhauthorREF}{}%
+  \providecommand{\mytwelfthauthorREF}{}%
+  \ifthenelse{\equal{\myfirstauthorREF}{}}{}{%
+    \myfirstauthorREF%
+    \ifthenelse{\equal{\mysecondauthorREF}{}}{}{%
+      \ifthenelse{\equal{\mythirdauthorREF}{}}{\ \wordand}{,}
+      \mysecondauthorREF%
+      \ifthenelse{\equal{\mythirdauthorREF}{}}{}{%
+        \ifthenelse{\equal{\myfourthauthorREF}{}}{\ \wordand}{,}
+        \mythirdauthorREF%
+        \ifthenelse{\equal{\myfourthauthorREF}{}}{}{%
+          \ifthenelse{\equal{\myfifthauthorREF}{}}{\ \wordand}{,}
+          \myfourthauthorREF%
+          \ifthenelse{\equal{\myfifthauthorREF}{}}{}{%
+            \ifthenelse{\equal{\mysixthauthorREF}{}}{\ \wordand}{,}
+            \myfifthauthorREF%
+            \ifthenelse{\equal{\mysixthauthorREF}{}}{}{%
+              \ifthenelse{\equal{\myseventhauthorREF}{}}{\ \wordand}{,}
+              \mysixthauthorREF%
+              \ifthenelse{\equal{\myseventhauthorREF}{}}{}{%
+                \ifthenelse{\equal{\myeighthauthorREF}{}}{\ \wordand}{,}
+                \myseventhauthorREF%
+                \ifthenelse{\equal{\myeighthauthorREF}{}}{}{%
+                  \ifthenelse{\equal{\myninthauthorREF}{}}{\ \wordand}{,}
+                  \myeighthauthorREF%
+                  \ifthenelse{\equal{\myninthauthorREF}{}}{}{%
+                    \ifthenelse{\equal{\mytenthauthorREF}{}}{\ \wordand}{,}
+                    \myninthauthorREF%
+                    \ifthenelse{\equal{\mytenthauthorREF}{}}{}{%
+                      \ifthenelse{\equal{\myeleventhauthorREF}{}}{\ \wordand}{,}
+                      \mytenthauthorREF%
+                      \ifthenelse{\equal{\myeleventhauthorREF}{}}{}{%
+                        \ifthenelse{\equal{\mytwelfthauthorREF}{}}{\ \wordand}{,}
+                        \myeleventhauthorREF%
+                        \ifthenelse{\equal{\mytwelfthauthorREF}{}}{}{%
+                          \ifthenelse{\equal{}{}}{\ \wordand}{,}
+                          \mytwelfthauthorREF%
+                        }%
+                      }%
+                    }%
+                  }%
+                }%
+              }%
+            }%
+          }%
+        }%
+      }%
+    }%
+  }%
+  \ 
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% author names with address references (used in HKSTS)
+\newcommand{\internauthortitlestring}{%
+  \ifthenelse{\equal{\mysecondauthor}{}}{%
+    \myfirstauthor$^\myfirstauthoraddress$\ %
+  }{%
+    \ifthenelse{\equal{\mythirdauthor}{}}{%
+      \myfirstauthor$^\myfirstauthoraddress$\ \wordand\ \mysecondauthor$^\mysecondauthoraddress$\ %
+    }{%
+      \ifthenelse{\equal{\myfourthauthor}{}}{%
+        \myfirstauthor$^\myfirstauthoraddress$, \mysecondauthor$^\mysecondauthoraddress$\ \wordand\ \mythirdauthor$^\mythirdauthoraddress$\ %
+      }{%
+        \ifthenelse{\equal{\myfifthauthor}{}}{%
+          \myfirstauthor$^\myfirstauthoraddress$, \mysecondauthor$^\mysecondauthoraddress$, \mythirdauthor$^\mythirdauthoraddress$\ \wordand\ \myfourthauthor$^\myfourthauthoraddress$\ %
+        }{%
+          \ifthenelse{\equal{\mysixthauthor}{}}{%
+            \myfirstauthor$^\myfirstauthoraddress$, \mysecondauthor$^\mysecondauthoraddress$, \mythirdauthor$^\mythirdauthoraddress$, \myfourthauthor$^\myfourthauthoraddress$\ \wordand\ \myfifthauthor$^\myfifthauthoraddress$\ %
+          }{%
+            \myfirstauthor$^\myfirstauthoraddress$, \mysecondauthor$^\mysecondauthoraddress$, \mythirdauthor$^\mythirdauthoraddress$, \myfourthauthor$^\myfourthauthoraddress$, \myfifthauthor$^\myfifthauthoraddress$\ \wordand\ \mysixthauthor$^\mysixthauthoraddress$\ %
+          }%
+        }%
+      }%
+    }%
+  }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% address list compatible with \internauthortitlestring
+\newcommand{\internaddresslist}{%
+  \ifne\mysecondaddress{$^a$}%
+  \myfirstaddress\\%
+  \ifne\mysecondaddress{%
+    $^b$\mysecondaddress\\%
+      \ifne\mythirdaddress{%
+        $^c$\mythirdaddress\\%
+          \ifne\myfourthaddress{%
+            $^d$\myfourthaddress\\%
+              \ifne\myfifthaddress{%
+                $^e$\myfifthaddress\\%
+                  \ifne\mysixthaddress{%
+                    $^f$\mysixthaddress\\%
+  }}}}}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \internmakeonecolumn{entry1}
+%%   creates a table with one column containing the given entries
+\AtBeginDocument{%
+  \newlength{\interncolumnwidth}%
+}
+\newcommand{\internmakeonecolumn}[1]{{%
+  \settowidth{\interncolumnwidth}{#1}%
+  \ifthenelse{\lengthtest{\interncolumnwidth=0pt}}{}{%
+    #1\\
+  }%
+}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \internmaketwocolumns{entry1}{entry2}
+%%   creates a table with two columns containing the given entries
+\newcommand{\internmaketwocolumns}[2]{
+  \settowidth{\interncolumnwidth}{#1}%
+  \ifthenelse{\lengthtest{\interncolumnwidth=0pt}}{}{%
+    #1\hfill{}#2\\
+  }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \internmakethreecolumns{entry1}{entry2}{entry3}
+%%   creates a table with three columns containing the given entries
+\newcommand{\internmakethreecolumns}[3]{
+  \settowidth{\interncolumnwidth}{#1}%
+  \ifthenelse{\lengthtest{\interncolumnwidth=0pt}}{}{%
+    #1\hfill{}#2\hfill{}#3\\
+  }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% citation
+%%   returns the language specific citation of the paper
+%%   default: no citation
+\providecommand{\interncitation}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Standard commands
+%%   The following commands >>>HAVE<<< to be defined, because
+%%   they are called by the main file.
+%%   Standard commands always starts with '\create'. (except
+%%   '\switchlanguage' since it would sound stupid ^_^ and
+%%   '\ackname' since it is the standard def in babel the package)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% switch language
+\newcommand{\switchlanguage}{\iflanguage{english}{\selectlanguage{german}}{\selectlanguage{english}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% switch language
+\newcommand{\ackname}{\iflanguage{english}{Acknowledgement}{\iflanguage{german}{Danksagung}{\langerrmessage}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PDF keywords
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\AtBeginDocument{
+  \ifthenelse{\equal{\mysecondauthor}{}}{%
+    \newcommand{\internpdfauthorstring}{%
+      \myfirstauthor%
+    }
+  }{%
+    \ifthenelse{\equal{\mythirdauthor}{}}{%
+      \newcommand{\internpdfauthorstring}{%
+        \myfirstauthor, \mysecondauthor%
+      }
+    }{%
+      \ifthenelse{\equal{\myfourthauthor}{}}{%
+        \newcommand{\internpdfauthorstring}{%
+          \myfirstauthor, \mysecondauthor, \mythirdauthor%
+        }
+      }{%
+        \ifthenelse{\equal{\myfifthauthor}{}}{%
+          \newcommand{\internpdfauthorstring}{%
+            \myfirstauthor, \mysecondauthor, \mythirdauthor, \myfourthauthor%
+          }
+        }{%
+          \ifthenelse{\equal{\mysixthauthor}{}}{%
+            \newcommand{\internpdfauthorstring}{%
+              \myfirstauthor, \mysecondauthor, \mythirdauthor, \myfourthauthor, \myfifthauthor%
+            }
+          }{%
+            \newcommand{\internpdfauthorstring}{%
+              \myfirstauthor, \mysecondauthor, \mythirdauthor, \myfourthauthor, \myfifthauthor, \mysixthauthor%
+            }
+          }%
+        }%
+      }%
+    }%
+  }%
+  \providecommand{\mysubject}{}
+  \ifnht{%
+    \hypersetup{
+      pdfauthor={\internpdfauthorstring},
+      pdftitle={\mytitle},
+      pdfsubject={\mysubject},
+      pdfkeywords={\mykeywordsEN}
+    }%
+  }
+}

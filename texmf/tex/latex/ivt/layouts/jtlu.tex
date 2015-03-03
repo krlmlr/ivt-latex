@@ -1,0 +1,276 @@
+% !TeX encoding = usascii
+% Prepare to get rid of \mypath one day
+\providecommand\mypath[3]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% JTLU PAPER LAYOUT
+%% Date: 2013-10-09
+%% author:
+%%   Kirill M\"uller, kirill.mueller@ivt.baug.ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Standard latex layout configurations
+%%   Here, commands and settings are use which are available
+%%   by the latex packages
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Type of document:
+%% - Paperformat: letterpaper, a4paper, a5paper, b5paper,
+%%   executivepaper, legalpaper
+%% - Main font size: 10pt, 11pt, 12pt
+%% - Formulae setting: - (centred), fleqn (left-aligned)
+%% - Numbering of formulae: - (right-aligned), leqno (left-aligned)
+%% - New page after title: titlepage, notitlepage
+%% - Number of columns per page: onecolumn, twocolumn
+%% - Page style: oneside, twoside
+%% - Paper rotation: - (protrait), landscape
+%% - Chapter start: openright, openany (not required for oneside layout)
+%% - Mark overfull boxes: draft, final
+\documentclass[galley]{\mypath../_latexfiles/_layouts/jtlu/jtlu-article-2col}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% borders, margins and offset
+%%   by document class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Package options
+%\PassOptionsToPackage{option}{package}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Include default packages and settings
+\input{\mypath../_latexfiles/_layouts/_packages}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Header and footer definition:
+%%   by document class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% paragraph settings:
+%%   by document class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% caption settings:
+%%   by document class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the depth of numbering parts,chapter,sections and paragraphs:
+%%   Numbers representing the depth of sectional units:
+%%   -1 = \part    (in book or report document classes)
+%%    0 = \chapter (in book or report document classes)
+%%    0 = \part    (in article document classes)
+%%    1 = \section
+%%    2 = \subsection
+%%    3 = \subsubsection
+%%    4 = \paragraph
+%%    5 = \subparagraph
+\setcounter{secnumdepth}{3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% citation style:
+\setcitestyle{authoryear,round}
+\bibliographystyle{\mypath../_latexfiles/styles/jtlu}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Default font
+%%   by document class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% line spacing
+%%   by document class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% heading settings:
+\newcommand{\mypagestyle}{fancy}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Language-specific words
+\input{\mypath../_latexfiles/_layouts/_langspec}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Internal commands
+\input{\mypath../_latexfiles/_layouts/_intern}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hyperlink color
+%%   by document class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figure definitions
+\input{\mypath../_latexfiles/_layouts/_figure-trb}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage and abstract definition
+%% The elsarticle.cls includes the abstract in the title page
+%% Hence, we wait until the \createabstract command before displaying
+%% the title page
+\newcommand{\createtitlepage}{}%
+\newcommand{\createcontact}[7]{}%
+\newcommand{\extractaddressfromcontact}[1]{%
+  \renewcommand{\createcontact}[7]{%
+      \ifne{##1}{\textbf{##1}\\##2\\\ifne{##3}{##3, }\removeword{##4}\\}%
+  }%
+  #1%
+}%
+\newcommand{\extractorganizationfromcontact}[1]{%
+  \renewcommand{\createcontact}[7]{%
+    ##2\ifne{##3}{, ##3}%
+  }%
+  \mdseries\hspace{-.5ex}#1%
+}%
+\newcommand{\extractemailfromcontact}[1]{%
+  \renewcommand{\createcontact}[7]{##7}%
+  #1%
+}%
+\newcommand{\createabstract}[1]{%
+\jtluissue{Y}
+\jtluvolume{X}								    	   
+\jtluyear{\the\year}								   
+\jtluid{nnn} 
+\setcounter{page}{1} 
+
+%% ===== ARTICLE TITLE (required), subtitle (optional) ==== %%
+\title{\mytitle}
+\providecommand{\mysubtitle}{}
+\subtitle{\mysubtitle}
+
+%% ===== SHORT TITLE (required for page headers) ========== %%
+\providecommand\myshorttitle{\mytitle}
+\shorttitle{\myshorttitle}
+
+
+%% ===== AUTHOR INFORMATION (required) ==================== %%             
+%% Name, affiliation/institution, and email/contact for each
+%% Add as many as necessary, separated by "\and":
+\ifeqe{\mysecondauthor}{}{
+  \newcommand\myauthors{\myfirstauthor}
+  \author{
+    {\myfirstauthor}
+      \thanks{\protect\extractemailfromcontact{\protect\myfirstaddress}}
+      \\\extractorganizationfromcontact{\myfirstaddress}
+   % \and {\bfseries } \\ 
+   % \and {\bfseries } \\    
+  }% End authors
+}{
+  \ifeqe{\mythirdauthor}{}{
+    \newcommand\myauthors{\myfirstauthor{} and \mysecondauthor}
+    \author{
+      {\semibfsf\myfirstauthor}
+        \thanks{\protect\extractemailfromcontact{\protect\myfirstaddress}}
+        \\\extractorganizationfromcontact{\myfirstaddress}
+      \and
+      {\semibfsf\mysecondauthor}
+        \\\extractorganizationfromcontact{\mysecondaddress}
+     % \and {\bfseries } \\    
+    }% End authors
+  }{
+    \ifeqe{\myfourthauthor}{}{
+      \newcommand\myauthors{\myfirstauthor{}, \mysecondauthor, and \mythirdauthor}
+      \author{
+        {\semibfsf\myfirstauthor}
+          \thanks{\protect\extractemailfromcontact{\protect\myfirstaddress}}
+          \\\extractorganizationfromcontact{\myfirstaddress}
+        \and
+        {\semibfsf\mysecondauthor}
+          \\\extractorganizationfromcontact{\mysecondaddress}
+        \and
+        {\semibfsf\mythirdauthor}
+          \\\extractorganizationfromcontact{\mythirdaddress}
+       % \and {\bfseries } \\    
+      }% End authors
+    }{
+      \ifeqe{\myfifthauthor}{}{
+        \newcommand\myauthors{\myfirstauthor{}, \mysecondauthor, \mythirdauthor, and \myfourthauthor}
+        \author{
+          {\semibfsf\myfirstauthor}
+            \thanks{\protect\extractemailfromcontact{\protect\myfirstaddress}}
+            \\\extractorganizationfromcontact{\myfirstaddress}
+          \and
+          {\semibfsf\mysecondauthor}
+            \\\extractorganizationfromcontact{\mysecondaddress}
+          \and
+          {\semibfsf\mythirdauthor}
+            \\\extractorganizationfromcontact{\mythirdaddress}
+          \and
+          {\semibfsf\myfourthauthor}
+            \\\extractorganizationfromcontact{\myfourthaddress}
+         % \and {\bfseries } \\    
+        }% End authors
+      }{
+        \ifeqe{\mysixthauthor}{}{
+          \newcommand\myauthors{\myfirstauthor{}, \mysecondauthor, \mythirdauthor, \myfourthauthor, and \myfifthauthor}
+          \author{
+            {\semibfsf\myfirstauthor}
+              \thanks{\protect\extractemailfromcontact{\protect\myfirstaddress}}
+              \\\extractorganizationfromcontact{\myfirstaddress}
+            \and
+            {\semibfsf\mysecondauthor}
+              \\\extractorganizationfromcontact{\mysecondaddress}
+            \and
+            {\semibfsf\mythirdauthor}
+              \\\extractorganizationfromcontact{\mythirdaddress}
+            \and
+            {\semibfsf\myfourthauthor}
+              \\\extractorganizationfromcontact{\myfourthaddress}
+            \and
+            {\semibfsf\myfifthauthor}
+              \\\extractorganizationfromcontact{\myfifthaddress}
+           % \and {\bfseries } \\    
+          }% End authors
+        }{
+          \newcommand\myauthors{\myfirstauthor{}, \mysecondauthor, \mythirdauthor, \myfourthauthor, \myfifthauthor, and \mysixthauthor}
+          \author{
+            {\semibfsf\myfirstauthor}
+              \thanks{\protect\extractemailfromcontact{\protect\myfirstaddress}}
+              \\\extractorganizationfromcontact{\myfirstaddress}
+            \and
+            {\semibfsf\mysecondauthor}
+              \\\extractorganizationfromcontact{\mysecondaddress}
+            \and
+            {\semibfsf\mythirdauthor}
+              \\\extractorganizationfromcontact{\mythirdaddress}
+            \and
+            {\semibfsf\myfourthauthor}
+              \\\extractorganizationfromcontact{\myfourthaddress}
+            \and
+            {\semibfsf\myfifthauthor}
+              \\\extractorganizationfromcontact{\myfifthaddress}
+            \and
+            {\semibfsf\mysixthauthor}
+              \\\extractorganizationfromcontact{\mysixthaddress}
+           % \and {\bfseries } \\    
+          }% End authors
+        }
+      }Network, Design, Inte
+    }
+  }
+}
+
+\jtlurights{\myauthors}
+
+\newcommand\mykeywordssep{\convertchar\mykeywordsEN{,}{;}}
+
+
+\twocolumn[
+\begin{@twocolumnfalse}
+\maketitle
+\begin{abstract}
+#1\par
+\end{abstract}
+
+\begin{keywords}
+  \mykeywordssep
+\end{keywords}
+\end{@twocolumnfalse}
+]
+\saythanks
+}
+
+\hypersetup{%
+			pdfproducer={The Journal of Transport and Land Use vol. X no. Y},
+			pdfstartpage=1,
+			colorlinks=true,
+			linkcolor=NavyBlue,
+			citecolor=PineGreen,
+			urlcolor=BrickRed,
+}% END HYPERSETUP

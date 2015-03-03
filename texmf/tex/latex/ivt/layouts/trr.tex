@@ -1,0 +1,28 @@
+% !TeX encoding = usascii
+% Prepare to get rid of \mypath one day
+\providecommand\mypath[3]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% TRB PAPER LAYOUT
+%% Date: 2007-06-28
+%% author:
+%%   Michael Balmer, balmer@ivt.baug.ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Surrounds all figures
+%%   Put it at the end of the document, one per page
+%%   \AtEndDocument didn't work; if this is used, the HTML code for
+%%   the figures is inserted after </body></html>
+\newcommand{\delayedfigures}{}
+\newcommand{\dofigure}[1]{\gappto{\delayedfigures}{\clearpage#1}}
+
+\input{\mypath../_latexfiles/_layouts/trb}
+
+\gpreto{\enddocument}{\delayedfigures}
+

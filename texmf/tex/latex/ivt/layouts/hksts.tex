@@ -1,0 +1,179 @@
+% !TeX encoding = usascii
+% Prepare to get rid of \mypath one day
+\providecommand\mypath[3]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% HKSTS PAPER LAYOUT
+%% Date: 2012-03-21
+%% author:
+%%   Pieter Fourie, fourie@ivt.baug.ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Standard latex layout configurations
+%%   Here, commands and settings are use which are available
+%%   by the latex packages
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Type of document:
+%% - Paperformat: letterpaper, a4paper, a5paper, b5paper,
+%%   executivepaper, legalpaper
+%% - Main font size: 10pt, 11pt, 12pt
+%% - Formulae setting: - (centred), fleqn (left-aligned)
+%% - Numbering of formulae: - (right-aligned), leqno (left-aligned)
+%% - New page after title: titlepage, notitlepage
+%% - Number of columns per page: onecolumn, twocolumn
+%% - Page style: oneside, twoside
+%% - Paper rotation: - (protrait), landscape
+%% - Chapter start: openright, openany
+%% - Mark overfull boxes: draft, final
+\documentclass[a4paper,11pt,fleqn,titlepage,onecolumn,oneside,openany,final]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% borders, margrins and offset
+\usepackage[a4paper,left=1.0in,right=1.0in,top=1.0in,bottom=1.0in]{geometry}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% line numbers
+\input{\mypath../_latexfiles/_layouts/_lineno-continuous}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Package options
+\PassOptionsToPackage{fleqn}{amsmath}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Include default packages and settings
+\input{\mypath../_latexfiles/_layouts/_packages}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% paragraph settings:
+\setlength{\parindent}{\parindent}%
+\setlength{\parskip}{11pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the depth of numbering parts,chapter,sections and paragraphs:
+%%   Numbers representing the depth of sectional units:
+%%   -1 = \part    (in book or report document classes)
+%%    0 = \chapter (in book or report document classes)
+%%    0 = \part    (in article document classes)
+%%    1 = \section
+%%    2 = \subsection
+%%    3 = \subsubsection
+%%    4 = \paragraph
+%%    5 = \subparagraph
+\setcounter{secnumdepth}{3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% citation style:
+\setcitestyle{authoryear,round}%
+\ifthenelse{\equal{\myfirstlang}{german}}{%
+  \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-ger}%
+}{%
+  \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-eng}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% no indentation for formulae:
+\setlength\mathindent{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Times font
+\input{\mypath../_latexfiles/_layouts/_font-times}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% single line spacing
+\singlespacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% heading settings:
+%%   now using the titlesec package
+%%
+%% legacy (match appearance of previous version)
+\newlength{\subsectionbeforedist}
+\setlength{\subsectionbeforedist}{1.16ex}
+\newlength{\sectionbeforedist}
+\setlength{\sectionbeforedist}{\subsectionbeforedist}
+\addtolength{\sectionbeforedist}{\parskip}
+
+%%
+%% section
+\titleformat{\section}{\normalfont\bfseries\MakeUppercase}{\thesection}{1em}{}
+\titlespacing{\section}{0in}{\sectionbeforedist}{0.001pt}
+%%
+%% subsection
+\titlespacing{\subsection}{0in}{\subsectionbeforedist}{0.001pt}
+%%
+%% subsubsection
+\titlespacing{\subsubsection}{0in}{\sectionbeforedist}{0.001pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Language-specific words
+\input{\mypath../_latexfiles/_layouts/_langspec}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Internal commands
+\input{\mypath../_latexfiles/_layouts/_intern}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hyperlink color
+\input{\mypath../_latexfiles/_layouts/_hyperlinks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figure definitions
+\newcommand{\figurecaptionandcontents}[2]{#2#1}
+\input{\mypath../_latexfiles/_layouts/_figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Contact
+%%   \createcontact
+%%     {<Name>}
+%%     {<andreas line 1>}
+%%     {<andreas line 1>}
+%%     {<andreas line 3>}
+%%     {<phone number>}
+%%     {<fax number>}
+%%     {<email address>}
+\newcommand{\createcontact}[7]{%
+  #2, \removeword{#4}%
+  \ifthenelse{\equal{\myfirstauthor}{#1}}{\\E-Mail: \href{mailto:#7}{#7}}{}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage definition
+\newcommand{\createtitlepage}{
+  \begin{titlepage}
+   \begin{center}
+
+    \noindent\textbf{\MakeUppercase{\mytitle}}
+
+    \vspace{0.1in}
+
+    \internauthortitlestring\\
+    \textit{%
+    \internaddresslist%
+    }
+    \end{center}
+
+    \vspace{0.1in}
+    \input{abstract}
+
+    \vspace{0.1in}
+    \textbf{Keywords: } \mykeywordsEN
+
+    \vspace{0.1in}
+    \textbf{Subject Area: } \mysubject
+
+    \vspace{0.1in}
+    \textbf{Preferred mode of presentation: } \myprefpresmode
+
+    \vspace{0.1in}
+    Request for the consideration of publication in the Proceedings: \textbf{\mypubinproc}
+    \vfill
+    \eject
+  \end{titlepage}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstract definition
+\newcommand{\createabstract}[1]{
+  \begin{center}\textbf{\MakeUppercase{\abstractname}}\end{center}
+  #1
+
+  %\vfill
+
+  %\eject
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

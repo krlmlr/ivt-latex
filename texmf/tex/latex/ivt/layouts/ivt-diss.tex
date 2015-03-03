@@ -1,0 +1,517 @@
+% !TeX encoding = usascii
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% IVT DISSERATION LAYOUT
+%% Date: 2007-06-28
+%% author:
+%%   Michael Balmer, balmer@ivt.baug.ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% The commands in here HAVE to be defined by the main file and
+%% therefore can be used in the layout (commands defined by the
+%% main file always starts with '\my')
+%%   \mypath := relative path to the paper directory
+%%   \myfirstlang := main langugage (german|english)
+%%   \mytitlefigure := relative location of the title figure
+%%   \mytitle := the title of the paper
+%%   \myinstitutionEN := the inst. (english) for which the paper is written
+%%   \myinstitutionDE := the inst. (german) for which the paper is written
+%%   \mynumber := the number of the paper
+%%   \myyear := the year of publishing
+%%   \mymonth := the month of publishing
+%%   \myday := the day of publishing
+%%   \mywordcount := number of words of the paper
+%%   \my[first|second|third|fourth|fifth|sisth]author := Author names
+%%   \my[first|second|third|fourth|fifth|sisth]authorREF := Author names
+%%     for the reference
+%%   \my[first|second|third|fourth|fifth|sisth]address := authors affiliation
+%%   \myfirstauthortitle := title of the author (typically MSc or similar)
+%%   \myfirstauthordoctortitle := title to receive for the dissertation
+%%   \myfirstauthorbirthday := date of birth of the author
+%%   \myfirstauthorcity := home-city ([b\"urgerort, Kanton] for citizens of
+%%     Switzerland or [Country] for a non-Swiss author)
+%%   \mykeywordsEN := english keywords
+%%   \mykeywordsDE := german keywords
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Standard latex layout configurations
+%%   Here, commands and settings are use which are available
+%%   by the latex packages
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Type of document:
+%% - Paperformat: letterpaper, a4paper, a5paper, b5paper,
+%%   executivepaper, legalpaper
+%% - Main font size: 10pt, 11pt, 12pt
+%% - Formulae setting: - (centred), fleqn (left-aligned)
+%% - Numbering of formulae: - (right-aligned), leqno (left-aligned)
+%% - New page after title: titlepage, notitlepage
+%% - Number of columns per page: onecolumn, twocolumn
+%% - Page style: oneside, twoside
+%% - Paper rotation: - (protrait), landscape
+%% - Chapter start: openright, openany
+%% - Mark overfull boxes: draft, final
+\documentclass[a4paper,12pt,fleqn,titlepage,onecolumn,twoside,openany,final]{report}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% borders, margrins and offset
+\usepackage[a4paper,left=1.0in,right=1.0in,top=0.5in,bottom=0.5in,includeheadfoot]{geometry}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% providing if-then-else command:
+\usepackage{ifthen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% default language:
+\ifthenelse{\equal{\myfirstlang}{german}}{%
+  \usepackage[english,german]{babel}%
+}{%
+  \usepackage[german,english]{babel}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Header and footer definition:
+\usepackage{fancyhdr}%
+\pagestyle{fancy}%
+\fancyhf{}%
+\fancyhead[R]{\slshape \footnotesize \nouppercase{\myyear}}%
+\fancyhead[L]{\slshape \footnotesize \nouppercase{\mytitle}}%
+\fancyfoot[C]{\footnotesize \thepage}%
+\renewcommand{\headrulewidth}{0.5pt}%
+\renewcommand{\footrulewidth}{0pt}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% paragraph settings:
+\setlength{\parindent}{0in}%
+\setlength{\parskip}{10pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% caption settings:
+\usepackage[nooneline,format=hang]{caption}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the depth of numbering parts,chapter,sections and paragraphs:
+%%   Numbers representing the depth of sectional units:
+%%   -1 = \part    (in book or report document classes)
+%%    0 = \chapter (in book or report document classes)
+%%    0 = \part    (in article document classes)
+%%    1 = \section
+%%    2 = \subsection
+%%    3 = \subsubsection
+%%    4 = \paragraph
+%%    5 = \subparagraph
+\setcounter{secnumdepth}{3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% citation style:
+\usepackage[round]{natbib}
+\ifthenelse{\equal{\myfirstlang}{german}}{%
+  \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-ger}%
+}{%
+  \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-eng}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Font:
+\usepackage{times}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% To prevent overfull boxes
+%%   it is quite nice, but in special cases, you will have too large
+%%   speaces between a two words of the same line.
+\sloppy
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% providing umlauts:
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% use hyper-refs for URL's and citations
+\usepackage{hyperref}
+%% line breaks for URL's
+\usepackage{url}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% line spacing
+\usepackage{setspace}
+\onehalfspacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% letter spacing
+\usepackage{soul}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% no indentation for formulas:
+\usepackage[fleqn]{amsmath}
+\setlength\mathindent{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% providing graphics:
+\usepackage{graphics}
+\usepackage{graphicx}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% sideways figures and tables:
+\usepackage{rotating}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% sub-figures:
+\usepackage[FIGTOPCAP]{subfigure}
+\def\subfigtopskip{0pt}
+\def\subfigbottomskip{5pt}
+\def\subfigcapskip{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% figures:
+%%   The following are sometimes needed to avoid pushing
+%%   the figs to the end of the text.
+\def\textfraction{0.0}
+\def\topfraction{0.9999}
+\def\floatpagefraction{0.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% tables:
+\usepackage{tabularx}
+\usepackage{multirow}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% pretty printing:
+\usepackage{listings}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% XML code setup:
+\lstloadlanguages{XML}
+%%
+\lstset {
+  showstringspaces=false,
+  basicstyle=\ttfamily\footnotesize,
+  lineskip=0pt,
+  breaklines=true,
+  breakatwhitespace=true,
+  breakindent=12pt,
+  fontadjust=true,
+  keywordstyle=\bfseries,
+  commentstyle=\bfseries,
+  stringstyle=\bfseries,
+  xleftmargin=0mm,
+  xrightmargin=0mm,
+  tabsize=2
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% convenient referencing:
+\usepackage[capitalize]{cleveref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% The following defines language specific words
+%%   These are internal commands. They are not used in the main file.
+%%   Langugage specific word commands always starts with '\word'
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% and/und
+\newcommand{\wordand}{\iflanguage{english}{and}{\iflanguage{german}{und}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% phone/Tel
+\newcommand{\wordphone}{\iflanguage{english}{phone}{\iflanguage{german}{Tel}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% fax/Fax
+\newcommand{\wordfax}{\iflanguage{english}{fax}{\iflanguage{german}{Fax}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Preferred citation style/Bevorzugter Zitierstil
+\newcommand{\wordprefcit}{\iflanguage{english}{Preferred citation style}{\iflanguage{german}{Bevorzugter Zitierstil}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Keywords/Schl\"usselw\"orter
+\newcommand{\wordkeywords}{\iflanguage{english}{Keywords}{\iflanguage{german}{Schl\"usselw\"orter}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Quelle/Source
+\newcommand{\wordsource}{\iflanguage{english}{Source:\ }{\iflanguage{german}{Quelle:\ }{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% The following defines other internal commands
+%%   Internal command are not used by the main file.
+%%   Internal commands always starts with '\internal'
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% user defined german keywords/user defined english keywords
+%%   The command only returns a string which are defined by the
+%%   main file (\mykeywordsEN or \mykeywordsDE)
+\newcommand{\internkeywords}{\iflanguage{english}{\mykeywordsEN}{\iflanguage{german}{\mykeywordsDE}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% papertype definition
+%%   i.e. working paper/Arbeitsberichte Verkehrs- und Raumplanung
+%%   i.e. disseration/Doktorarbeit
+\newcommand{\internpapertype}{\iflanguage{english}{PhD-Thesis}{\iflanguage{german}{Dissertation}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \internmakethreecolumns{entry1}{entry2}{entry3}
+%%   creates a table with three columns containing the given entries
+\newcommand{\internmakethreecolumns}[3]{
+  \noindent
+  \begin{tabular*}{\textwidth}{@{}l@{}l@{}l@{}}
+    #1 & #2 & #3 \\
+  \end{tabular*}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% citation
+%%   returns the language specific citation of the paper
+\newcommand{\interncitation}{%
+  \myfirstauthorREF\ (\myyear) \mytitle, \internpapertype, %
+  \iflanguage{english}{ETH-Zurich, Zurich.}%
+  {\iflanguage{german}{ETH-Z\"urich, Z\"urich.}%
+   {\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Standard commands
+%%   The following commands >>>HAVE<<< to be defined, because
+%%   they are called by the main file.
+%%   Standard commands always starts with '\create'. (except
+%%   '\switchlanguage' since it would sound stupid ^_^ and
+%%   '\ackname' since it is the standard def in babel the package)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% switch language
+\newcommand{\switchlanguage}{\iflanguage{english}{\selectlanguage{german}}{\selectlanguage{english}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% switch language
+\newcommand{\ackname}{\iflanguage{english}{Acknowledgement}{\iflanguage{german}{Danksagung}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figure definition
+%%   \createfigure
+%%     {<short caption>}
+%%     {<long caption>}
+%%     {<\label{label}>}
+%%     {<\includegraphics[...]{figure}>}
+%%     {<source>or<>}
+\newcommand{\createfigure}[5]{
+  \begin{figure}
+    \caption[#1]{#2} #3
+    \vspace{0.5em}
+    \hrule
+    \begin{center}
+      #4\\
+    \end{center}
+    \ifthenelse
+      {\equal{#5}{}}
+      {}
+      {\wordsource #5 \vspace{0.5em}}
+    \hrule
+  \end{figure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Sideways figure definition
+%%   \createfigure
+%%     {<short caption>}
+%%     {<long caption>}
+%%     {<\label{label}>}
+%%     {<\includegraphics[...]{figure}>}
+%%     {<source>or<>}
+\newcommand{\createsidewaysfigure}[5]{
+  \begin{sidewaysfigure}
+    \caption[#1]{#2} #3
+    \vspace{0.5em}
+    \hrule
+    \begin{center}
+      #4\\
+    \end{center}
+    \ifthenelse
+      {\equal{#5}{}}
+      {}
+      {\wordsource #5 \vspace{0.5em}}
+    \hrule
+  \end{sidewaysfigure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Sub-figure:
+%%   \createsubfigure
+%%     {<caption>}
+%%     {<\includegraphics[...]{figure}>}
+%%     {<\label{label}>}
+%%     {<\\>or<>}%
+\newcommand{\createsubfigure}[4]{
+  \subfigure[#1]{%
+    #2%
+    #3%
+  }#4
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Table:
+%%   \createtable
+%%     {<short caption>}
+%%     {<long caption>}
+%%     {<\label{label}>}
+%%     {<\begin{tabular}...\end{tabular}>}
+%%     {<source>or<>}
+\newcommand{\createtable}[5]{
+  \begin{table}
+    \caption[#1]{#2} #3
+    \vspace{0.5em}
+    \hrule
+    \begin{center}
+      #4\\
+    \end{center}
+    \ifthenelse
+      {\equal{#5}{}}
+      {}
+      {\wordsource #5 \vspace{0.5em}}
+    \hrule
+  \end{table}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Sideways table definition
+%%   \createsidewaystable
+%%     {<short caption>}
+%%     {<long caption>}
+%%     {<\label{label}>}
+%%     {<\begin{tabular}...\end{tabular}>}
+%%     {<source>or<>}
+\newcommand{\createsidewaystable}[5]{
+  \begin{sidewaystable}
+    \caption[#1]{#2} #3
+    \vspace{0.5em}
+    \hrule
+    \begin{center}
+      #4\\
+    \end{center}
+    \ifthenelse
+      {\equal{#5}{}}
+      {}
+      {\wordsource #5 \vspace{0.5em}}
+    \hrule
+  \end{sidewaystable}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% XML-figure
+%%   \createxmlfigure
+%%     {<short caption>}
+%%     {<long caption>}
+%%     {<\label{label}>}
+%%     {<the/file/with/the/xml/code/to/include>}
+%%     {<source>or<>}
+\newcommand{\createxmlfigure}[5]{
+  \begin{figure}
+    \caption[#1]{#2} #3
+    \vspace{0.5em}
+    \hrule
+    \lstset{language=XML}
+    \lstinputlisting{#4}
+    \ifthenelse
+      {\equal{#5}{}}
+      {}
+      {\wordsource #5 \vspace{0.5em}}
+    \hrule
+  \end{figure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Contact
+%%   \createcontact
+%%     {<Name>}
+%%     {<andreas line 1>}
+%%     {<andreas line 1>}
+%%     {<andreas line 3>}
+%%     {<phone number>}
+%%     {<fax number>}
+%%     {<email address>}
+\newcommand{\createcontact}[7]{
+  \ifthenelse{\equal{#1}{}}{%
+    \noindent\parbox[][][l]{0.33\textwidth}{
+    }%
+  }{%
+    \noindent\parbox[][][l]{0.33\textwidth}{
+      #1\newline
+      #2\newline
+      #3\newline
+      #4\newline
+      \wordphone: #5\newline
+      \wordfax: #6\newline
+      #7\newline
+    }%
+  }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage definition
+\newcommand{\createtitlepage}{
+  \begin{titlepage}
+    \hrule
+    \noindent\parbox[][9cm][c]{\textwidth}{
+      \ifthenelse
+        {\equal{\mytitlefigure}{}}
+        {}
+        {\begin{center}\includegraphics[width=\textwidth,totalheight=9cm,keepaspectratio=true]{\mytitlefigure}\end{center}}
+    }
+    \vspace{0.1in}
+
+    \hrule
+
+    \vspace{0.2in}
+
+    \noindent\LARGE\textbf{\mytitle}
+
+    \vspace{0.3in}
+
+    \noindent\parbox[][3cm][l]{\textwidth}{
+      \large\textbf{\myfirstauthor}
+    }
+
+    \vfill
+
+    \noindent
+    \begin{singlespace}
+    \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+      \large\textbf{\internpapertype}   & \large\textbf{\mynumber} \\
+                                        & \large\textbf{\myyear}   \\
+    \end{tabular*}
+    \end{singlespace}
+
+    \vspace{0.25in}
+
+    \noindent
+    \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+      \includegraphics[width=2.5in]{\mypath../_latexfiles/logos/ivt-logo} & \includegraphics[width=2.5in]{\mypath../_latexfiles/logos/eth-logo} \\
+    \end{tabular*}
+    \vfill
+  \end{titlepage}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstract definition
+\newcommand{\createabstract}[1]{
+  \noindent
+  \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+    \internpapertype & \mynumber \\
+  \end{tabular*}
+
+  \vspace{0.25in}
+
+  \noindent\textbf{\Large\mytitle}
+
+  \begin{singlespace}
+  \ifthenelse{\equal{\myfourthauthor}{}}{%
+    \internmakethreecolumns{\myfirstaddress}{\mysecondaddress}{\mythirdaddress}%
+  }{%
+    \internmakethreecolumns{\myfirstaddress}{\mysecondaddress}{\mythirdaddress}%
+    \internmakethreecolumns{\myfourthaddress}{\myfifthaddress}{\mysixthaddress}%
+  }%
+  \end{singlespace}
+
+  \noindent\myyear
+
+  \vspace{0.25in} \noindent \textbf{\sffamily\Large \abstractname}
+
+  \begin{singlespace}
+  #1
+  \end{singlespace}
+
+  \vfill
+
+  \parbox[bottom][][b]{\textwidth}{%
+    \vspace{0.25in} \noindent \textbf{\sffamily\Large \wordkeywords}\\
+    \internkeywords
+
+    \vspace{0.25in} \noindent \textbf{\sffamily\Large \wordprefcit}\\
+    \interncitation
+  }
+
+  \eject
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

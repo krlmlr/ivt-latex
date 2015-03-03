@@ -1,0 +1,85 @@
+% !TeX encoding = usascii
+% Prepare to get rid of \mypath one day
+\providecommand\mypath[3]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id: iatbr2011,v 1.18 2010/08/06 09:19:30 muelleki Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% IATBR (BASED ON IVT KOMA LAYOUT)
+%% Date: 2011-10-27
+%% author:
+%%   Andreas Horni, horni@ivt.baug.ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{\mypath../_latexfiles/_layouts/ivt-generic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% New titlepage definition
+\renewcommand{\createtitlepage}{
+  \providecommand{\mysubtitle}{}%
+  \begin{titlepage}
+    \mytitlepagefontcommand
+%    \noindent\parbox[][9cm][c]{\textwidth}{
+%		  \ifdefined\mytitletext
+%       \begin{center}\mytitletext\end{center}%
+%     \else
+%      \ifthenelse
+%        {\equal{\mytitlefigure}{}}
+%        {}
+%        {\begin{center}\includegraphics[width=\textwidth,totalheight=9cm,keepaspectratio=true]{\mytitlefigure}\end{center}}
+%     \fi
+%    }
+    
+    \begin{singlespace}
+			\begin{tabular*}{\textwidth}{@{}l@{}}
+				\includegraphics[width=\textwidth]{\mypath../_latexfiles/logos/iatbr_abstract}
+    	\end{tabular*}
+    \end{singlespace}
+       
+    \vspace{0.4in}
+
+    \hrule
+
+    \vspace{0.1in}
+    
+    \noindent\parbox[][2cm][l]{\textwidth}{
+      \LARGE\textbf{\mytitle}
+    }
+    
+    \vspace{0.05in}
+
+    \noindent\parbox[][2cm][l]{\textwidth}{
+      \large\textbf{\internauthorlist}
+    }
+
+    \vfill
+
+    \vspace{0.15in}
+
+  \begin{singlespace}
+  \small{
+  \providecommand{\mynumaddresscolumns}{3}%
+  \ifthenelse{\equal{\mynumaddresscolumns}{1}}{%
+    \internmakeonecolumn{\myfirstaddress}%
+    \internmakeonecolumn{\mysecondaddress}%
+  }{%
+  \ifthenelse{\equal{\mynumaddresscolumns}{2}}{%
+    \internmaketwocolumns{\myfirstaddress}{\mysecondaddress}%
+    \internmaketwocolumns{\mythirdaddress}{\myfourthaddress}%
+  }{%
+  \ifthenelse{\equal{\mynumaddresscolumns}{3}}{%
+    \internmakethreecolumns{\myfirstaddress}{\mysecondaddress}{\mythirdaddress}%
+    \internmakethreecolumns{\myfourthaddress}{\myfifthaddress}{\mysixthaddress}%
+  }{%
+    !WRONG_NUMADDRESSCOLUMNS!
+  }}}%
+  } % end small
+  \end{singlespace}
+  
+  \vspace{-\baselineskip}  
+  \vfill
+  \end{titlepage}
+}

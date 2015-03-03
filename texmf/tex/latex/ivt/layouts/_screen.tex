@@ -1,0 +1,36 @@
+% !TeX encoding = usascii
+\providecommand{\extractaddressfromcontact}[1]{%
+  \renewcommand{\createcontact}[7]{%
+    \ifne{##1}{\textbf{##1}\\##2\\\ifne{##3}{##3, }\removeword{##4}\\}%
+  }%
+  #1%
+}%
+\providecommand{\extractemailfromcontact}[1]{%
+  \renewcommand{\createcontact}[7]{%
+    ##7%
+  }%
+  #1%
+}%
+\renewcommand{\createtitlepage}{}
+\renewcommand{\createabstract}[1]{%
+\title{\mytitle}%
+\author{%
+  \extractaddressfromcontact\myfirstaddress%
+  \extractaddressfromcontact\mysecondaddress%
+  \extractaddressfromcontact\mythirdaddress%
+  \extractaddressfromcontact\myfourthaddress%
+  \extractaddressfromcontact\myfifthaddress%
+  \extractaddressfromcontact\mysixthaddress%
+  Email:\extractemailfromcontact\myfirstaddress%
+}%
+\date{}%
+\maketitle%
+\ifne{#1}{\begin{abstract}#1\end{abstract}}%
+}
+\providecommand{\mypagestyle}{}
+\renewcommand{\mypagestyle}{empty}
+\usepackage{adjustbox}
+\apptocmd{\tablecontentsbefore}{\maxsizebox{\textwidth}{!}\bgroup\begin{varwidth}{3\textwidth}}{}{}
+\pretocmd{\tablecontentsafter}{\end{varwidth}\egroup}{}{}
+\singlespacing
+

@@ -1,0 +1,262 @@
+%% DxH 6.3.2014
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% template-specific packages to be loaded before other packages:
+\providecommand{\mypackages}{}
+\mypackages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Package options
+\PassOptionsToPackage{fleqn}{amsmath}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Include default packages and settings
+%%   requires \mypagestyle
+%\input{_packages}
+\RequirePackage{ivt-pack}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Header and footer definition:
+\providecommand{\myheaderfooterdef}{
+  \usepackage{fancyhdr}%
+  \fancyhf{}%
+  \fancyhead[R]{\slshape \footnotesize \squelch{\nouppercase{\wordmonth~\myyear}}}%
+  \fancyhead[L]{\slshape \footnotesize \squelch{\nouppercase{\mytitle}}}%
+  \fancyfoot[C]{\footnotesize \squelch{\thepage}}%
+  \renewcommand{\headrulewidth}{0.5pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
+\myheaderfooterdef%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% template-specific settings:
+\providecommand{\mysettings}{}
+\mysettings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the depth of numbering parts,chapter,sections and paragraphs:
+%%   Numbers representing the depth of sectional units:
+%%   -1 = \part    (in book or report document classes)
+%%    0 = \chapter (in book or report document classes)
+%%    0 = \part    (in article document classes)
+%%    1 = \section
+%%    2 = \subsection
+%%    3 = \subsubsection
+%%    4 = \paragraph
+%%    5 = \subparagraph
+\setcounter{secnumdepth}{3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% citation style:
+\providecommand{\mybibstyle}{
+  \setcitestyle{authoryear,round}%
+  \ifthenelse{\equal{\myfirstlang}{german}}{%
+    \bibliographystyle{ivt-ger}%
+  }{%
+    \bibliographystyle{ivt-eng}%
+  }
+}%
+\mybibstyle%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% no indentation for formulas:
+\setlength\mathindent{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Times font
+%\input{_font-times}
+\RequirePackage{ivt-time}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% one-half line spacing
+\onehalfspacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Language-specific words
+%\input{_langspec}
+\RequirePackage{ivt-lang}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Internal commands
+%\input{_intern}
+\RequirePackage{ivt-int}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hyperlink color
+%\input{_hyperlinks}
+\RequirePackage{ivt-hyp}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figure definitions
+%\input{_figure}
+\RequirePackage{ivt-fig}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Contact
+%%   \createcontact
+%%     {<Name>}
+%%     {<andreas line 1>}
+%%     {<andreas line 1>}
+%%     {<andreas line 3>}
+%%     {<phone number>}
+%%     {<fax number>}
+%%     {<email address>}
+\providecommand{\createcontact}[7]{{%
+  \providecommand{\mynumaddresscolumns}{3}
+  \ifthenelse{\equal{\mynumaddresscolumns}{1}}{%
+  \newcommand{\interncolumnwidthfactor}{1}}{%
+  \ifthenelse{\equal{\mynumaddresscolumns}{2}}{%
+  \newcommand{\interncolumnwidthfactor}{.48}}{%
+  \ifthenelse{\equal{\mynumaddresscolumns}{3}}{%
+  \newcommand{\interncolumnwidthfactor}{.31}}{%
+  !WRONG_NUMADDRESSCOLUMNS!
+  }}}
+  \ifthenelse{\equal{#1}{}}{%
+    \noindent%
+    \begin{minipage}[t]{\interncolumnwidthfactor\textwidth}
+    \end{minipage}
+  }{%
+    \noindent%
+    \begin{minipage}[t]{\interncolumnwidthfactor\textwidth}%
+      \raggedright{}%
+      #1\newline
+      #2\newline
+      #3\newline
+      #4\newline
+      \wordphone: #5\newline
+      \wordfax: #6\newline
+      #7\newline
+    \end{minipage}
+  }%
+}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage macros
+\providecommand{\mytitlepagefontcommand}{}
+\providecommand{\myinternpapertypeandnumber}{}
+\providecommand{\mytitlepagedate}{\wordmonth~\myyear}
+\providecommand{\myinterninstitutionforabstract}{\interninstitution & \\}
+\providecommand{\myinterncitation}{
+    \ifne\interncitation{
+        \vspace{0.25in} \textbf{\sffamily\Large \wordprefcit} \\
+        \interncitation
+    }
+}
+\providecommand{\mytitlefigureboxheight}{9cm}
+\providecommand{\mylogos}{%
+\begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}%
+\includegraphics[width=2.5in]{logos/ivt-logo} & \includegraphics[width=2.5in]{logos/eth-logo} \\
+\end{tabular*}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage definition
+\providecommand{\createtitlepage}{
+  \pagenumbering{roman}%
+  \setcounter{page}{0}%
+  \providecommand{\mysubtitle}{}%
+  \begin{titlepage}
+    \setlength{\parfillskip}{0cm plus 30cm}
+    \mytitlepagefontcommand
+    \hrule
+    \noindent\parbox[][\mytitlefigureboxheight][c]{\textwidth}{
+     \ifdefined\mytitletext
+       \begin{center}\mytitletext\end{center}%
+     \else
+      \ifthenelse
+        {\equal{\mytitlefigure}{}}
+        {}
+        {\begin{center}\includegraphics[width=\textwidth,totalheight=9cm,keepaspectratio=true]{\mytitlefigure}\end{center}}
+     \fi
+    }
+    \vspace{0.1in}
+
+    \hrule
+
+    \vspace{0.2in}
+
+    \begin{singlespace}
+    \noindent\LARGE\textbf{\mytitle}
+
+    \ifthenelse{\equal{\mysubtitle}{}}
+        {}
+        {\Large\textbf{\mysubtitle}}
+    \end{singlespace}
+
+    \vspace{0.3in}
+
+    \noindent\parbox[][3cm][l]{\textwidth}{
+      \large\textbf{\internauthorlist}
+    }
+
+    \vfill
+
+    \noindent
+    \begin{singlespace}
+    \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+      \myinternpapertypeandnumber
+      \large\textbf{\interninstitution} & \large\textbf{\mytitlepagedate} \\
+    \end{tabular*}
+    \end{singlespace}
+
+    \vspace{0.25in}
+
+    \mylogos
+  \end{titlepage}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstract definition
+\providecommand{\createabstract}[1]{%
+ {
+  % hack required for more than one invocation of \createabstract
+  \ifdefined\abstractpagenumber
+    \pagenumbering{roman}%
+    \setcounter{page}{\abstractpagenumber}
+  \fi
+  \setlength{\parfillskip}{0cm plus 30cm}
+  \ifne\myinterninstitutionforabstract{
+    \noindent%
+    \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+      \myinterninstitutionforabstract
+    \end{tabular*}
+
+    \vspace{0.25in}
+  }%
+  \noindent\textbf{\mytitlepagefontcommand\Large\mytitle}
+
+  \begin{singlespace}
+  \providecommand{\mynumaddresscolumns}{3}%
+  \ifthenelse{\equal{\mynumaddresscolumns}{1}}{%
+    \raggedright%
+    \internmakeonecolumn{\myfirstaddress}%
+    \internmakeonecolumn{\mysecondaddress}%
+  }{%
+  \ifthenelse{\equal{\mynumaddresscolumns}{2}}{%
+    \raggedright%
+    \internmaketwocolumns{\myfirstaddress}{\mysecondaddress}%
+    \internmaketwocolumns{\mythirdaddress}{\myfourthaddress}%
+  }{%
+  \ifthenelse{\equal{\mynumaddresscolumns}{3}}{%
+    \raggedright%
+    \internmakethreecolumns{\myfirstaddress}{\mysecondaddress}{\mythirdaddress}%
+    \internmakethreecolumns{\myfourthaddress}{\myfifthaddress}{\mysixthaddress}%
+  }{%
+    !WRONG_NUMADDRESSCOLUMNS!
+  }}}%
+  \end{singlespace}
+
+  \noindent\wordmonth~\myyear
+
+  \ifne{#1}{
+    \vspace{0.25in} \noindent \textbf{\sffamily\Large \abstractname}
+  
+    \begin{singlespace}
+    #1
+    \end{singlespace}
+  }
+
+  \vfill
+
+  \ifthenelse{\equal{\internkeywords}{}}{}{
+    \vspace{0.25in} \noindent \textbf{\sffamily\Large \wordkeywords} \\
+    \internkeywords
+  }
+
+  \myinterncitation
+ }
+
+ \eject%
+
+ % hack required for more than one invocation of \createabstract
+ \edef\abstractpagenumber{\number\value{page}}
+ % don't assume user interaction
+ \pagenumbering{arabic}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

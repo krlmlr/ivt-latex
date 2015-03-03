@@ -1,0 +1,64 @@
+% !TeX encoding = usascii
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% The following defines language specific words
+%%   These are internal commands. They are not used in the main file.
+%%   Langugage specific word commands always starts with '\word'
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Error message
+\newcommand{\langerrmessage}{\errmessage{Wrong language. Define myfirstlang as either english or german.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% and/und
+\newcommand{\wordand}{\iflanguage{english}{and}{\iflanguage{german}{und}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% phone/Tel
+\newcommand{\wordphone}{\iflanguage{english}{phone}{\iflanguage{german}{Tel}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% fax/Fax
+\newcommand{\wordfax}{\iflanguage{english}{fax}{\iflanguage{german}{Fax}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Preferred citation style/Bevorzugter Zitierstil
+\newcommand{\wordprefcit}{\iflanguage{english}{Preferred citation style}{\iflanguage{german}{Bevorzugter Zitierstil}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Keywords/Schl\"usselw\"orter
+\newcommand{\wordkeywords}{\iflanguage{english}{Keywords}{\iflanguage{german}{Schl\"usselw\"orter}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Quelle/Source
+\newcommand{\wordsource}{\iflanguage{english}{Source:\ }{\iflanguage{german}{Quelle:\ }{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec -> german/english
+\newcommand{\wordmonth}{%
+  \ifthenelse{\equal{\mymonth}{jan}}{\iflanguage{english}{January}{\iflanguage{german}{Januar}{\langerrmessage}}}%
+  {\ifthenelse{\equal{\mymonth}{feb}}{\iflanguage{english}{February}{\iflanguage{german}{Februar}{\langerrmessage}}}%
+   {\ifthenelse{\equal{\mymonth}{mar}}{\iflanguage{english}{March}{\iflanguage{german}{M\"arz}{\langerrmessage}}}%
+    {\ifthenelse{\equal{\mymonth}{apr}}{\iflanguage{english}{April}{\iflanguage{german}{April}{\langerrmessage}}}%
+     {\ifthenelse{\equal{\mymonth}{may}}{\iflanguage{english}{May}{\iflanguage{german}{Mai}{\langerrmessage}}}%
+      {\ifthenelse{\equal{\mymonth}{jun}}{\iflanguage{english}{June}{\iflanguage{german}{Juni}{\langerrmessage}}}%
+       {\ifthenelse{\equal{\mymonth}{jul}}{\iflanguage{english}{July}{\iflanguage{german}{Juli}{\langerrmessage}}}%
+        {\ifthenelse{\equal{\mymonth}{aug}}{\iflanguage{english}{August}{\iflanguage{german}{August}{\langerrmessage}}}%
+         {\ifthenelse{\equal{\mymonth}{sep}}{\iflanguage{english}{September}{\iflanguage{german}{September}{\langerrmessage}}}%
+          {\ifthenelse{\equal{\mymonth}{oct}}{\iflanguage{english}{October}{\iflanguage{german}{Oktober}{\langerrmessage}}}%
+           {\ifthenelse{\equal{\mymonth}{nov}}{\iflanguage{english}{November}{\iflanguage{german}{November}{\langerrmessage}}}%
+            {\ifthenelse{\equal{\mymonth}{dec}}{\iflanguage{english}{December}{\iflanguage{german}{Dezember}{\langerrmessage}}}%
+             {}}}}}}}}}}}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec -> num
+\newcommand{\nummonth}{%
+  \ifthenelse{\equal{\mymonth}{jan}}{01}%
+  {\ifthenelse{\equal{\mymonth}{feb}}{02}%
+   {\ifthenelse{\equal{\mymonth}{mar}}{03}%
+    {\ifthenelse{\equal{\mymonth}{apr}}{04}%
+     {\ifthenelse{\equal{\mymonth}{may}}{05}%
+      {\ifthenelse{\equal{\mymonth}{jun}}{06}%
+       {\ifthenelse{\equal{\mymonth}{jul}}{07}%
+        {\ifthenelse{\equal{\mymonth}{aug}}{08}%
+         {\ifthenelse{\equal{\mymonth}{sep}}{09}%
+          {\ifthenelse{\equal{\mymonth}{oct}}{10}%
+           {\ifthenelse{\equal{\mymonth}{nov}}{11}%
+            {\ifthenelse{\equal{\mymonth}{dec}}{12}%
+             {}}}}}}}}}}}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+

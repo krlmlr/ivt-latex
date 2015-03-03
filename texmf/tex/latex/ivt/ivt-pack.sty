@@ -1,0 +1,298 @@
+% !TeX encoding = usascii
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bugfixes:
+\usepackage{fixltx2e}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Smart space after macro:
+\usepackage{xspace}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% string manipulation
+\usepackage{stringstrings}
+\usepackage{textcase}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% providing if-then-else command:
+\usepackage{ifthen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% providing expandonce command (and others):
+\usepackage{etoolbox}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LaTeX3 document parsing:
+\usepackage{xparse}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% helper commands
+\newcommand{\ifeqe}[4]{%
+  \ifthenelse{\equal{\expandonce{#1}}{\expandonce{#2}}}{#3}{#4}%
+}
+\newcommand{\ifeq}[3]{%
+  \ifeqe{#1}{#2}{#3}{}%
+}
+\newcommand{\ifneq}[3]{%
+  \ifeqe{#1}{#2}{}{#3}%
+}
+\newcommand{\ifne}[2]{%
+  \ifneq{#1}{}{#2}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% number of words used (wordcount)
+%% - include number
+\AtBeginDocument{%
+\providecommand{\mywordcount}{}%
+\renewcommand{\mywordcount}{%
+  \newcounter{mywordcount}%
+  \IfFileExists{mywordcount}{%
+    \input{mywordcount}%
+    \setcounter{mywordcount}{\mytextwordcount}%
+  }{%
+    \newcommand{\mytextwordcount}{Use the script wordcount.py to count}%
+  }%
+  \newcounter{myequivalentcount}%
+  \setcounter{myequivalentcount}{\arabic{mywordcount} + \totvalue{figure} * 250 + \totvalue{table} * 250}%
+  \ifthenelse{\equal{\totvalue{table}}{0}}{%
+    \newcommand{\mytableid}{}%
+  }{%
+    \ifthenelse{\equal{\totvalue{table}}{1}}{%
+      \newcommand{\mytableid}{ + 1 table}%
+    }{%
+      \newcommand{\mytableid}{ + \total{table}\xspace tables}%
+    }%
+  }%
+  \ifthenelse{\equal{\totvalue{figure}}{0}}{%
+    \newcommand{\myfigureid}{}%
+  }{%
+    \ifthenelse{\equal{\totvalue{figure}}{1}}{%
+      \newcommand{\myfigureid}{ + 1 figure}%
+    }{%
+      \newcommand{\myfigureid}{ + \total{figure}\xspace figures}%
+    }%
+  }%
+  \ifthenelse{\equal{\arabic{mywordcount}}{\arabic{myequivalentcount}}}{%
+    \newcommand{\myeqtext}{}
+  }{%
+    \newcommand{\myeqtext}{ = \arabic{myequivalentcount} word equivalents}
+  }%
+  \mytextwordcount\xspace words\myfigureid\mytableid\myeqtext%
+}%
+}
+\newcommand{\ifelsewc}[2]{%
+  \ifdefined\wcFileName%
+    #1%
+  \else%
+    #2%
+  \fi%
+}
+\newcommand{\ifwc}[1]{%
+  \ifelsewc{#1}{}%
+}
+\newcommand{\ifnwc}[1]{%
+  \ifelsewc{}{#1}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Support for conversion to Word
+\providecommand{\AsPicture}[1]{#1}
+\makeatletter
+\@ifpackageloaded{tex4ht}{%
+  \newcommand{\ifelseht}[2]{#1}%
+}{%
+  \newcommand{\ifelseht}[2]{#2}%
+}%
+\makeatother
+\newcommand{\ifht}[1]{%
+  \ifelseht{#1}{}%
+}
+\newcommand{\ifnht}[1]{%
+  \ifelseht{}{#1}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Support for make parts of the document (such as page headers)
+%% non-selectable
+%%   (usually, you also want to ignore these parts when counting
+%%    words)
+\ifelseht{%
+  \DeclareRobustCommand\squelch[1]{#1}%
+}{%
+  \ifelsewc{%
+    \DeclareRobustCommand\squelch[1]{}%
+  }{%
+    \usepackage{accsupp}
+    \DeclareRobustCommand\squelch[1]{%
+      \BeginAccSupp{method=plain,ActualText={}}#1\EndAccSupp{}}%
+  }
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% default language:
+\ifthenelse{\equal{\myfirstlang}{german}}{%
+  \usepackage[english,german]{babel}%
+}{%
+  \usepackage[german,english]{babel}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% bibliography:
+\usepackage{natbib}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% AMS mathematics:
+%%   (include before txfonts, and use txfonts's iint)
+\usepackage{amsmath}
+\ifnwc{%
+  \let\iint\relax
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% The package microtype adjusts font width for individual words
+%%   in order to achieve better line breaking.
+%%   Also, margin kerning makes the margin look more even.
+%%   This also renders the use of \sloppy unnecessary.
+\usepackage{microtype}
+\fussy
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% providing umlauts:
+\usepackage[latin1]{inputenc}
+\ifnwc{%
+\usepackage[T1]{fontenc}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% line spacing
+\ifnwc{%
+\usepackage{setspace}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Allow rotating single pages
+%% The package is orientated correctly when displayed on screen
+\usepackage{pdflscape}
+%% Extract command from this package, to be used in the
+%% "sidewaysfigure" environment...
+\makeatletter
+\let\AddPageRotate=\PLS@AddRotate
+\let\RemovePageRotate=\PLS@RemoveRotate
+\makeatother
+%% ...but reset the command that un-rotates pages inside the
+%% "landscape" environment, so that the page rotation stays in effect
+%% there
+%%
+%% (AtBeginEnvironment
+\ifdefined\AtBeginEnvironment
+  \AtBeginEnvironment{landscape}{\def\RemovePageRotate{\relax}}
+\else
+  \message{Use a recent version of etoolbox package to get
+  correct page rotation in the landscape environment.}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hack for orientating sideways{tables,figures} correctly
+%%
+%% By default, every page is not rotated:
+\usepackage{everypage}
+\AddEverypageHook{\RemovePageRotate}%
+%% The package floatpag implements a hook that is executed
+%% when the current float is displayed. We use this hook
+%% to add an \AddPageRotate command for the sideways floats.
+\usepackage{floatpag}
+\ifnwc{%
+  \AtBeginDocument{%
+    \pagestyle{\mypagestyle}%
+    \floatpagestyle{\mypagestyle}%
+    \rotfloatpagestyle{\mypagestyle}%
+  }
+}
+\makeatletter
+\def\thisfloatcommand#1{%
+  \expandafter\expandafter\expandafter\gdef\expandafter\csname\number\@currbox @float\endcsname{#1}\relax}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Captions and subcaptions
+\usepackage{caption}
+\ifnht{%
+  \usepackage[singlelinecheck=on,labelformat=simple]{subcaption}
+  \renewcommand\thesubfigure{(\alph{subfigure})}
+  \renewcommand\thesubtable{(\alph{subtable})}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Section headings
+\usepackage{titlesec}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% providing graphics:
+\usepackage{graphics}
+\usepackage{graphicx}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% sideways figures and tables:
+\usepackage{rotating}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% figures:
+%%   The following are sometimes needed to avoid pushing
+%%   the figs to the end of the text.
+\def\textfraction{0.0}
+\def\topfraction{0.9999}
+\def\floatpagefraction{0.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% tables:
+\usepackage{multirow}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% pretty printing:
+\usepackage{listings}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% XML code setup:
+\lstloadlanguages{XML}
+%%
+\lstset {
+  showstringspaces=false,
+  basicstyle=\ttfamily\footnotesize,
+  lineskip=0pt,
+  breaklines=true,
+  breakatwhitespace=true,
+  breakindent=12pt,
+  fontadjust=true,
+  keywordstyle=\bfseries,
+  commentstyle=\itshape,
+  stringstyle=\bfseries\itshape,
+  xleftmargin=0mm,
+  xrightmargin=0mm,
+  tabsize=2
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Support for figure and table count:
+\usepackage{totcount}
+\usepackage{calc}
+\regtotcounter{figure}
+\regtotcounter{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Less space between enumeration lists
+\usepackage{paralist}
+\renewenvironment{itemize}[1]{\begin{compactitem}#1}{\end{compactitem}}
+\renewenvironment{enumerate}[1]{\begin{compactenum}#1}{\end{compactenum}}
+\renewenvironment{description}[0]{\begin{compactdesc}}{\end{compactdesc}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Typesetting-quality tables
+\usepackage{booktabs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% new verbatim environment
+\usepackage{verbatim}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Extended color definitions
+\PassOptionsToPackage{svgnames}{xcolor}
+\usepackage{xcolor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Just in case (before hyperref):
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{ltabptch}
+\ifnht{\usepackage{nameref}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Use hyper-refs for URLs and citations,
+%% allow line breaks for URLs
+%%   include after all other packages, especially after titlesec
+\PassOptionsToPackage{obeyspaces}{url}
+\ifnht{\usepackage{hyperref}}
+\usepackage{url}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% convenient referencing (after hyperref):
+\usepackage[capitalize]{cleveref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% tables (after hyperref):
+\usepackage{tabularx}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% do not count words in references
+%% count only title, subtitle and abstract, no auxiliary information
+\ifwc{%
+  \renewcommand{\bibliography}[1]{}%
+  \AtBeginDocument{%
+    \renewcommand{\createtitlepage}{\mytitle \mysubtitle}%
+    \renewcommand{\createabstract}[1]{#1}%
+  }%
+}

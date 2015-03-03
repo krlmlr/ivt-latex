@@ -1,0 +1,307 @@
+% !TeX encoding = usascii
+% Prepare to get rid of \mypath one day
+\providecommand\mypath[3]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% PAPER LAYOUT FOR THE DDSS CONFERENCE IN EINDHOFEN (http://2012.ddss.nl/)
+%% Date: 2012-06-01
+%% authors: Basil Vitins basil.vitins@ivt.baug.ethz.ch, Kirill Mueller
+%%
+%% Derived from:
+%%
+%% IVT GENERIC PAPER LAYOUT
+%% Date: 2007-07-11
+%% author:
+%%   Michael Balmer, balmer@ivt.baug.ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Standard latex layout configurations
+%%   Here, commands and settings are use which are available
+%%   by the latex packages
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Type of document:
+%% - Paperformat: letterpaper, a4paper, a5paper, b5paper,
+%%   executivepaper, legalpaper
+%% - Main font size: 10pt, 11pt, 12pt
+%% - Formulae setting: - (centred), fleqn (left-aligned)
+%% - Numbering of formulae: - (right-aligned), leqno (left-aligned)
+%% - New page after title: titlepage, notitlepage
+%% - Number of columns per page: onecolumn, twocolumn
+%% - Page style: oneside, twoside
+%% - Paper rotation: - (protrait), landscape
+%% - Chapter start: openright, openany
+%% - Mark overfull boxes: draft, final
+\providecommand{\mydocumentclass}{
+
+  \documentclass[a4paper,11pt,fleqn,titlepage,onecolumn,twoside,openany,final]{article}
+}
+\mydocumentclass
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% template-specific packages to be loaded before other packages:
+\providecommand{\mypackages}{
+\usepackage[a4paper,left=2.0cm,right=7.0cm,top=2.3cm,bottom=7.7cm,includeheadfoot,asymmetric]{geometry}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Package options
+%%
+\PassOptionsToPackage{margin=0pt,font=small,labelfont=it,skip=0pt,nooneline}{caption}
+\PassOptionsToPackage{fleqn}{amsmath}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mypackages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Include default packages and settings
+%%   requires \mypagestyle
+\input{\mypath../_latexfiles/_layouts/_packages}
+
+\captionsetup*[table]{justification=raggedright}
+\captionsetup*[figure]{justification=centering}
+
+\DeclareCaptionLabelSeparator{point}%
+{. }
+\captionsetup*{labelsep=point}
+
+\usepackage{indentfirst}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Header and footer definition:
+\providecommand{\myheaderfooterdef}{
+  \usepackage{scrpage2}%
+  \clearscrheadfoot%
+  \ohead{\footnotesize\thepage}%
+  \lohead{\providecommand{\myheadingstitle}{\mytitle}\slshape \footnotesize \squelch{\myheadingstitle}}%
+  \rehead{\slshape \footnotesize \squelch{DDSS \myyear}}%
+  \cfoot[\thepage]{}%
+  \ofoot{}%
+
+%% compatibility to old generic template:
+  \addtolength{\topmargin}{-6pt}
+  \addtolength{\headsep}{4pt}
+  \addtolength{\textheight}{12pt}
+  \addtolength{\footskip}{-12pt}
+}
+\newcommand{\mypagestyle}{scrheadings}%
+\myheaderfooterdef%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% template-specific settings:
+\providecommand{\mysettings}{}
+\mysettings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% citation style:
+\providecommand{\mybibstyle}{
+  \setcitestyle{authoryear,round}%
+  \ifthenelse{\equal{\myfirstlang}{german}}{%
+    \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-ger}%
+  }{%
+    \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-unsrt-eng-ddss}%
+  }
+}%
+\mybibstyle%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the depth of numbering parts,chapter,sections and paragraphs:
+%%   Numbers representing the depth of sectional units:
+%%   -1 = \part    (in book or report document classes)
+%%    0 = \chapter (in book or report document classes)
+%%    0 = \part    (in article document classes)
+%%    1 = \section
+%%    2 = \subsection
+%%    3 = \subsubsection
+%%    4 = \paragraph
+%%    5 = \subparagraph
+\setcounter{secnumdepth}{3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% no indentation for formulas:
+\setlength\mathindent{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Times font
+\input{\mypath../_latexfiles/_layouts/_font-times}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% one-half line spacing
+\singlespacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% heading settings:
+%%  now using the titlesec package
+%%
+%% legacy (match appearance of previous version)
+%%
+%% section
+\titleformat{\section}{\normalfont\bfseries}{\thesection}{1em}{\MakeTextUppercase}
+\titlespacing*{\section}{0pt}{26pt}{13pt}
+%%
+%% subsection
+\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0in}{13pt}{13pt}
+%%
+%% subsubsection
+\titleformat{\subsubsection}{\normalfont\bfseries}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0in}{13pt}{13pt}
+%%
+%% paragraph
+\titleformat{\paragraph}[runin]{\normalfont\bfseries}{}{0pt}{}
+\titlespacing*{\paragraph}{0in}{0pt}{0pt}
+%%
+%% subparagraph
+\titleformat{\subparagraph}[runin]{\normalfont\itshape}{}{0pt}{}
+\titlespacing*{\subparagraph}{0in}{0pt}{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Language-specific words
+\input{\mypath../_latexfiles/_layouts/_langspec}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Internal commands
+\input{\mypath../_latexfiles/_layouts/_intern}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hyperlink color
+\input{\mypath../_latexfiles/_layouts/_hyperlinks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figure definitions
+\newcommand{\figurecaptionandcontents}[2]{#2#1}
+\newcommand{\tablecaptionandcontents}[2]{#1#2}
+\newcommand{\figurerule}{}
+\newcommand{\tablecontentsbefore}{}
+\newcommand{\tablecontentsafter}{}
+\input{\mypath../_latexfiles/_layouts/_figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Contact
+%%   \createcontact
+%%     {<Name>}
+%%     {<andreas line 1>}
+%%     {<andreas line 1>}
+%%     {<andreas line 3>}
+%%     {<phone number>}
+%%     {<fax number>}
+%%     {<email address>}
+\providecommand{\createcontact}[7]{%
+  \newcommand{\interncolumnwidthfactor}{1}
+  \ifthenelse{\equal{#1}{}}{%
+    \noindent\parbox[t][][l]{\interncolumnwidthfactor\textwidth}{
+    }%
+  }{%
+    \noindent\parbox[t][][l]{\interncolumnwidthfactor\textwidth}{\raggedright
+      #1\newline
+      \textit{
+      {\small
+      #2\newline
+      #3\newline
+      #4\newline
+      \wordphone: #5\newline
+      \wordfax: #6\newline
+      #7\newline
+      }
+    }}%
+    }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage macros
+\providecommand{\mytitlepagefontcommand}{}
+\providecommand{\myinternpapertypeandnumber}{}
+\providecommand{\myinterninstitutionforabstract}{\interninstitution & \\}
+\providecommand{\mylogos}{%
+\begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}%
+\includegraphics[width=2.5in]{\mypath../_latexfiles/logos/ivt-logo} & \includegraphics[width=2.5in]{\mypath../_latexfiles/logos/eth-logo} \\
+\end{tabular*}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage definition
+\providecommand{\createtitlepage}{
+  \providecommand{\mysubtitle}{}%
+%  \begin{titlepage}
+%    \mytitlepagefontcommand
+%    \hrule
+%    \noindent\parbox[][9cm][c]{\textwidth}{
+%     \ifdefined\mytitletext
+%       \begin{center}\mytitletext\end{center}%
+%     \else
+%      \ifthenelse
+%        {\equal{\mytitlefigure}{}}
+%        {}
+%        {\begin{center}\includegraphics[width=\textwidth,totalheight=9cm,keepaspectratio=true]{\mytitlefigure}\end{center}}
+%     \fi
+%    }
+%    \vspace{0.1in}
+%
+%    \hrule
+%
+%    \vspace{0.2in}
+%
+%    \begin{singlespace}
+%    \noindent\LARGE\textbf{\mytitle}
+%
+%    \ifthenelse{\equal{\mysubtitle}{}}
+%        {}
+%        {\Large\textbf{\mysubtitle}}
+%    \end{singlespace}
+%
+%    \vspace{0.3in}
+%
+%    \noindent\parbox[][3cm][l]{\textwidth}{
+%      \large\textbf{\internauthorlist}
+%    }
+%
+%    \vfill
+%
+%    \noindent
+%    \begin{singlespace}
+%    \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+%      \myinternpapertypeandnumber
+%      \large\textbf{\interninstitution} & \large\textbf{\wordmonth~\myyear} \\
+%    \end{tabular*}
+%   \end{singlespace}
+%
+%    \vspace{0.25in}
+%
+%    \mylogos
+%  \end{titlepage}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstract definition
+
+\providecommand{\createabstract}[1]{
+  \thispagestyle{scrplain}
+
+ \noindent \parbox[][][l]{\textwidth}{%
+    \noindent \Large \textbf{\mytitle}\\
+     \ifthenelse{\equal{\mysubtitle}{}}
+        {}
+        {\noindent \large \emph{\mysubtitle}}
+  }
+
+\vspace{32pt}
+
+
+\begin{singlespace}
+    \myfirstaddress
+\end{singlespace}
+
+\vspace{26pt}
+
+\begin{small}
+
+\noindent \parbox[][][l]{\textwidth}{%
+
+  \begin{tabular}{@{} L{2.5cm} @{} L{9.5cm}}
+   \noindent \textbf{Key words:}     &  \internkeywords    \\[\baselineskip]
+
+    \textbf{Abstract:}     &   #1 \\
+ \end{tabular}
+
+  }
+
+\end{small}
+
+
+%  \eject
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

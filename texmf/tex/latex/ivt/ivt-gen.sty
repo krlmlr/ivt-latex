@@ -1,0 +1,30 @@
+% dxh from ivt-generic to add packages ivt-genb (old ivt-generic-base.tex) immediately
+\providecommand{\mydocumentclass}{\ifdefined\wcFileName \documentclass[a4paper,12pt,fleqn,titlepage,onecolumn,oneside,final,bibliography=totocnumbered,numbers=noenddot]{article}
+	\else
+\documentclass[a4paper,12pt,fleqn,titlepage,onecolumn,oneside,final,bibliography=totocnumbered,numbers=noenddot,parskip=full]{scrartcl}
+  	\fi}
+  	
+\PassOptionsToPackage{nooneline,format=hang}{caption}
+%% caption settings:
+\newcommand{\mypackages}{%% borders, margrins and offset
+    		\usepackage[a4paper,left=1.0in,right=1.0in,top=0.5in,bottom=0.5in,includeheadfoot]{geometry}}
+%% Header and footer definition:
+\providecommand{\myheaderfooterdef}{
+  	\usepackage{scrpage2}%
+  	\clearscrheadfoot%
+  	\ohead{\slshape \footnotesize \squelch{\wordmonth~\myyear}}%
+  	\ihead{\providecommand{\myheadingstitle}{\mytitle}\slshape \footnotesize \squelch{\myheadingstitle}}%
+  	\cfoot[\footnotesize\pagemark]{\footnotesize \squelch{\pagemark}}%
+  	\ofoot{}%
+  	\setheadsepline{0.5pt}%
+  	\setlength{\headheight}{1.33\baselineskip}%
+%% compatibility to old generic template:
+  	\setheadsepline{0.5pt}[\vspace{-2pt}]%
+  	\addtolength{\topmargin}{-6pt}
+  	\addtolength{\headsep}{4pt}
+  	\addtolength{\textheight}{12pt}
+  	\addtolength{\footskip}{-12pt}
+	}% myheaderfooterdef
+\providecommand{\mypagestyle}{scrheadings}%
+%% Titlepage definition
+\newcommand{\mytitlepagefontcommand}{\sffamily}

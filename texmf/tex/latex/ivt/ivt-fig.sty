@@ -1,0 +1,277 @@
+% !TeX encoding = usascii
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Caption on top or at bottom?
+%%   Default: on top
+\providecommand{\figurecaptionandcontents}[2]{#1#2}%
+\ifthenelse{\equal{\figurecaptionandcontents{a}{b}}{ab}}{%
+  \captionsetup*[figure]{position=above}%
+  \captionsetup*[subfigure]{position=above}%
+}{%
+  \captionsetup*[figure]{position=below}%
+  \captionsetup*[subfigure]{position=below}%
+}%
+%\captionsetup*[figure]{position=below}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Caption on top or at bottom for tables?
+%%   Default: same as for figure
+\providecommand{\tablecaptionandcontents}[2]{\figurecaptionandcontents{#1}{#2}}%
+\ifthenelse{\equal{\tablecaptionandcontents{a}{b}}{ab}}{%
+  \captionsetup*[table]{position=above}
+  \captionsetup*[subtable]{position=above}%
+}{%
+  \captionsetup*[table]{position=below}%
+  \captionsetup*[subtable]{position=below}%
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Which environment to surround the figure with?
+%% (If left empty, do nothing)
+%%   Default: center
+\providecommand{\figurecontentsenv}{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Which environment to surround the table with?
+%% (If left empty, do nothing)
+%%   Default: \figurecontentsenv
+\providecommand{\tablecontentsenv}{\figurecontentsenv}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Which command to put before/after figure?
+%%   Default: \begin{\figurecontentsenv} and \end{\figurecontentsenv}
+%%            or nothing if \figurecontentsenv is empty
+\providecommand{\figurecontentsbefore}{\begin{\figurecontentsenv}}
+\providecommand{\figurecontentsafter}{\end{\figurecontentsenv}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Which command to put before/after table?
+%%   Default: \begin{\tablecontentsenv} and \end{\tablecontentsenv}
+%%            or nothing if \tablecontentsenv is empty
+\providecommand{\tablecontentsbefore}{\begin{\tablecontentsenv}}
+\providecommand{\tablecontentsafter}{\end{\tablecontentsenv}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Use hrules?
+%%   Default: yes
+\providecommand{\figurerule}{\hrule}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Surrounds all figures
+%%   Default: Just use it
+\providecommand{\dofigure}[1]{#1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figure definition (code in [] can be omitted)
+%%   \begin{richfigure}
+%%     [<placement>, e.g. htp (h=here, t=top, p=page)]
+%%     {<short caption>}
+%%     {<long caption>}
+%%     {<\label{label}>}
+%%     [<source>]
+%%       <\includegraphics[...]{figure}>
+%%   \end{richfigure}
+%%
+%% Advantage over \createfigure: The contents can include arbitrary code,
+%% e.g., verbatim text
+\NewDocumentEnvironment{richfigure}{O{tbp} m m m O{}}{%
+  \ifnwc\bgroup%{%
+    \dofigure\bgroup%{%
+      \begin{figure*}[#1]%
+        \ifthenelse{\equal{\figurecaptionandcontents{a}{b}}{ab}}{%
+          \caption[#2]{#3}#4%
+        }{}%
+        \figurerule%
+        \figurecontentsbefore%
+          }{% Here, the contents of the environment are placed
+        \figurecontentsafter%
+        \ifthenelse%
+          {\equal{#5}{}}%
+          {}%
+          {\begin{singlespace}\wordsource #5\end{singlespace}\smallskip}%
+        \figurerule%
+        \ifthenelse{\equal{\figurecaptionandcontents{a}{b}}{ba}}{%
+          \caption[#2]{#3}#4%
+        }{}%
+      \end{figure*}%
+    \egroup%{
+  \egroup%{
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figure definition (old style, code in [] can be omitted)
+%%   \createfigure
+%%     [placement]
+%%     {<short caption>}
+%%     {<long caption>}
+%%     {<\label{label}>}
+%%     {<\includegraphics[...]{figure}>}
+%%     {<source>or<>}
+\newcommand{\createfigure}[6][tbp]{%
+  \begin{richfigure}[#1]{#2}{#3}{#4}[#6]
+    #5
+  \end{richfigure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Sideways figure definition
+%%   \createsidewaysfigure
+%%     {<short caption>}
+%%     {<long caption>}
+%%     {<\label{label}>}
+%%     {<\includegraphics[...]{figure}>}
+%%     {<source>or<>}
+\newcommand{\createsidewaysfigure}[5]{%
+  \ifelseht{%
+    \createfigure{#1}{#2}{#3}{#4}{#5}%
+  }{%
+    \ifnwc{%
+      \dofigure{%
+        \begin{sidewaysfigure*}
+          \thisfloatcommand{%
+            \AddThispageHook{\AddPageRotate{90}}%
+          }%
+          \figurecaptionandcontents{%
+            \caption[#1]{#2}#3%
+          }{%
+            \figurerule%
+            \begin{center}%
+              #4\\%
+            \end{center}%
+            \ifthenelse
+              {\equal{#5}{}}
+              {}
+              {\begin{singlespace}\wordsource #5\end{singlespace}\smallskip}%
+            \figurerule%
+          }%
+        \end{sidewaysfigure*}%
+      }%
+    }%
+  }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Sub-figure:
+%%   \createsubfigure
+%%     {<caption>}
+%%     {<\includegraphics[...]{figure}>}
+%%     {<\label{label}>}
+%%     {<\\>or<>}%
+\newcommand{\createsubfigure}[4]{%
+  \subcaptionbox{#1#3}{#2}\ #4
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Table definition:
+%%   \begin{richtable}
+%%     [<placement>, e.g. htp (h=here, t=top, p=page)]
+%%     {<short caption>}
+%%     {<long caption>}
+%%     {<\label{label}>}
+%%     [<source>]
+%%       <\begin{tabular}...\end{tabular}>
+%%   \end{richtable}
+%%
+%% Advantage over \createtable: The contents can include arbitrary code,
+%% e.g., verbatim text
+\NewDocumentEnvironment{richtable}{O{tbp} m m m O{}}{%
+  \ifnwc\bgroup%{
+    \dofigure\bgroup%{
+      \AsPicture\bgroup%{
+        \begin{table*}[#1]%
+          \ifthenelse{\equal{\tablecaptionandcontents{a}{b}}{ab}}{%
+            \caption[#2]{#3}#4%
+          }{}%
+          \figurerule%
+          \tablecontentsbefore%
+            }{% Here, the contents of the environment are placed
+          \tablecontentsafter%
+          \ifthenelse%
+            {\equal{#5}{}}%
+            {}%
+            {\begin{singlespace}\wordsource #5\end{singlespace}\smallskip}%
+          \figurerule%
+          \ifthenelse{\equal{\tablecaptionandcontents{a}{b}}{ba}}{%
+            \caption[#2]{#3}#4%
+          }{}%
+        \end{table*}%
+      \egroup%}
+    \egroup%}
+  \egroup%}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Table definition (old style, code in [] can be omitted):
+%%   \createtable
+%%     [placement]
+%%     {<short caption>}
+%%     {<long caption>}
+%%     {<\label{label}>}
+%%     {<\begin{tabular}...\end{tabular}>}
+%%     {<source>or<>}
+\newcommand{\createtable}[6][tbp]{%
+  \begin{richtable}[#1]{#2}{#3}{#4}[#6]
+    #5
+  \end{richtable}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Sideways table definition
+%%   \createsidewaystable
+%%     {<short caption>}
+%%     {<long caption>}
+%%     {<\label{label}>}
+%%     {<\begin{tabular}...\end{tabular}>}
+%%     {<source>or<>}
+\newcommand{\createsidewaystable}[5]{%
+  \ifelseht{%
+    \createtable{#1}{#2}{#3}{#4}{#5}%
+  }{%
+    \ifnwc{%
+      \dofigure{%
+        \AsPicture{%
+          \begin{sidewaystable*}%
+            \thisfloatcommand{%
+              \AddThispageHook{\AddPageRotate{90}}%
+            }%
+            \tablecaptionandcontents{%
+              \caption[#1]{#2}#3%
+            }{%
+              \figurerule%
+              \begin{center}%
+                #4\\%
+              \end{center}%
+              \ifthenelse
+                {\equal{#5}{}}
+                {}
+                {\begin{singlespace}\wordsource #5\end{singlespace}\smallskip}%
+              \figurerule%
+            }%
+          \end{sidewaystable*}%
+        }%
+      }%
+    }%
+  }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Sub-table:
+%%   \createsubtable
+%%     {<caption>}
+%%     {<\begin{tabular}...\end{tabular}>}
+%%     {<\label{label}>}
+%%     {<\\>or<>}%
+\newcommand{\createsubtable}[4]{%
+  \createsubfigure{#1}{#2}{#3}{#4}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% XML-figure
+%%   \createxmlfigure
+%%     {<short caption>}
+%%     {<long caption>}
+%%     {<\label{label}>}
+%%     {<the/file/with/the/xml/code/to/include>}
+%%     {<source>or<>}
+\newcommand{\createxmlfigure}[6][tbp]{%
+  \ifnwc{%
+    \dofigure{%
+      \begin{figure*}[#1]%
+        \figurecaptionandcontents{%
+          \caption[#2]{#3}#4%
+        }{%
+          \figurerule%
+          \lstinputlisting[language=XML]{#5}%
+          \ifthenelse
+            {\equal{#6}{}}
+            {}
+            {\begin{singlespace}\wordsource #6\end{singlespace}\smallskip}%
+          \figurerule
+        }%
+      \end{figure*}%
+    }%
+  }%
+}

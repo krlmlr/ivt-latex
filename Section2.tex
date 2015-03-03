@@ -1,0 +1,204 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Complex Structures}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Here you can find how to use labeling, cross-references, footnotes,
+etc. Some of them are standard \LaTeX\ commands, described in this 
+section. Commands available only in the IVT environment will be 
+explained in the next section.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Labels and Cross-Refs}
+\label{sec:compStructs-LabelsCrossRefs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Anywhere you want you can add a label (see above for this subsection).
+Wherever you want you can refer (cross-ref) to this label by using the
+``\textbackslash{}ref'' command.
+Example:
+Labels and Cross-Refs can be found in
+\cref{sec:compStructs-LabelsCrossRefs}.
+
+Labels can also be used in lists:
+
+\begin{enumerate}
+  \item\label{item:stepOne} Step one
+  \item Step two
+  \item Feedback (Goto~\ref{item:stepOne})
+\end{enumerate}
+
+Labels are very important in Figures and Tables. It is used to refer
+to them
+in the written text (see \cref{sec:compStructs-Figures,sec:compStructs-Tables}).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Clever referencing}\label{sec:CleverReferencing}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The ``cleveref'' package provides the ``\textbackslash{}cref'' command to conveniently
+reference any type of object\footnote{See
+\href{http://www.ctan.org/tex-archive/help/Catalogue/entries/cleveref.html}{its CTAN entry},
+accessed on May 28th, 2010.}. For example:
+
+\begin{itemize}
+  \item This is a reference to a single section: Labels are described
+in \cref{sec:compStructs-LabelsCrossRefs}.
+  \item This is a reference to multiple sections: This document
+contains, among others,
+\cref{sec:compStructs-LabelsCrossRefs,sec:footnotes,sec:CleverReferencing}.
+  \item This is a reference to multiple subsequent sections: This
+document contains, among others,
+\cref{sec:compStructs-LabelsCrossRefs,sec:footnotes,sec:compStructs-Figures}.
+  \item One can summarize refs to different types of objects. This
+becomes clear when taking a look at this sentence with references to
+\cref{sec:compStructs-LabelsCrossRefs,fig:labelOfTheMultiFigure2-SubFig1,fig:labelOfTheMultiFigure2-SubFig2,tab:labelOfTheTable}.
+  \item \Cref{fig:labelOfTheSingleFigure}---this is how a reference to a figure
+    should look like at the beginning of a sentence.
+    Compare this with the following: \cref{fig:labelOfTheMultiFigure1}.
+\end{itemize}
+
+Note how ``cleveref'' automatically adds the object type. One does not
+have to write it anymore.
+But remember using the ``\textbackslash{}Cref'' command instead
+at the beginning of the sentence!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Footnotes}\label{sec:footnotes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Footnotes are directly embedded in the text where you want to refer to
+them.
+Depending on the layout, they will appear at the bottom of the current
+page or
+at the end of the Section. Example:
+
+This is a text\footnote{more information about ``text''} with a
+footnote\footnote{more information about ``footnote''}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Formulas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To write formulas in \LaTeX{} you can describe it as plain text.
+You can either embed a formula into the text or add it on a separate
+line.
+In the second version formula numbers will be automatically added.
+With labels you are able to refer to the formulas.
+
+\subsubsection{Formula embedded in text}
+
+The formula part is enclosed by \$. Examples:
+
+bla bla bla $[-30min,+30min]$ bla bla bla.
+
+bla bla bla bla bla bla $P > N$ bla bla bla $S_{j}$ bla $j$ bla bla
+bla  $\beta$ bla bla bla.
+
+\subsubsection{Formula as separate line}
+
+Using the ``equation'' environment the formulas will be placed on a
+separate line with a number. Examples:
+
+\begin{equation}\label{eq:score-averaging}
+  S = (1 - \alpha) \cdot S_\text{old} + \alpha \cdot S_\text{new}\,,
+\end{equation}
+
+\begin{equation}\label{eq:utility-total}
+  U_\text{total} = \sum_{i=1}^{n} U_{\text{perf},i} + \sum_{i=1}^{n} U_{\text{late},i}
+              + \sum_{i=1}^{n} U_{\text{travel},i}\,,
+\end{equation}
+
+\begin{equation}\label{eq:utility-perform}
+  U_{\text{perf},i}(t_{\text{perf},i}) = \max \left[ 0 , \beta_{\text{perf}} \cdot
+t^{*}_{i} \cdot
+                \ln \left( \frac{t_{\text{perf},i}}{t_{0,i}} \right)
+\right]\,,
+\end{equation}
+
+\begin{equation}\label{eq:typical-duration}
+  t_{0,i} = t^{*}_{i} \cdot e^{-\zeta / (p \cdot t^{*}_i)}\,,
+\end{equation}
+
+\begin{equation}\label{eq:utility-perform-resolved}
+  U_{\text{perf},i}(t_{\text{perf},i}) = 
+      \max\left[ 0 , \beta_\text{perf} \cdot t^{*}_{i} \cdot
+      \left( \ln\left( \frac{t_{\text{perf},i}}{t^{*}_{i}} \right) +
+      \frac{\zeta}{p \cdot t^{*}_i} \right) \right].
+\end{equation}
+
+\begin{equation}\label{eq:utility-late}
+  U_{\text{late},i} = \begin{cases} 
+    \beta_{\text{late}} \cdot t_{\text{late},i}
+      &: t_{\text{late},i} \geq 0 \\
+    0
+      &: \text{otherwise}
+  \end{cases}
+\end{equation}
+
+\begin{equation}\label{eq:utility-travel}
+  \begin{aligned}
+    U_{\text{travel},i} &= \beta_{\text{travel}} \cdot t_{\text{travel},i} \\
+                        &= \beta_{\text{travel}} \cdot \ldots
+  \end{aligned}
+\end{equation}
+
+With the labels you can refer to an equation with the ``ref'' command.
+Examples:
+
+As shown in \cref{eq:utility-total}, the total utility is\ldots{}
+See \cref{eq:utility-travel} for the definition of the
+travel-utility.
+
+\subsubsection{Text mode}
+
+Text in math mode looks ugly, and spaces are ignored:
+$bafflingly ugly$.
+Anything that consists of more than one letter
+should be surrounded by the ``\textbackslash{}text'' command:
+$\text{bafflingly ugly}$.
+If you need italics, use ``\textbackslash{}text\{\textbackslash{}emph\{\ldots\}\}''
+or simply
+ ``\textbackslash{}mathit'';
+the latter still eats spaces:
+$\mathit{bafflingly ugly}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Citations and References}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+By using the IVT bibliography database you can refer to a reference by
+using the command ``\textbackslash{}citep'' (citation in parentheses)
+or ``\textbackslash{}citet''
+(citation embedded in the sentence). With the unique key of the
+bib-entry you will automatically refer to that reference and the
+reference will automatically be added to the reference list. The way
+the references will be sorted depends on the layout you use. 
+
+Examples for ``\textbackslash{}citet'':
+
+bla bla \citet{Hensher_2001} 
+and \citet{GaerlingAxhausen_Transportation_2003}
+bla bla bla bla bla bla bla bla bla bla
+\citet{BowmanEtAl_WTR_1999,VovshaEtAl_TRR_2002,JonnalagaddaEtAl_TRR_2001,BhatEtAl_TRR_2004,Axhausen_Jones_1990}
+bla bla bla bla bla bla bla bla.
+
+Examples for ``\textbackslash{}citep'':
+
+bla bla bla bla bla bla
+\citep[e.g.,][]{Sheffi_1985,OrtuzarWillumsen_2001,OrtuzarWillumsen_2011}.
+
+bla bla bla bla bla bla \citep[see also][pp.\
+325-378]{Wardrop_PICE_1952}.
+
+bla bla bla bla bla bla \citep{Wardrop_PICE_1952}.
+
+Just like with the clever referencing commands (cf.~\cref{sec:CleverReferencing})
+you should use ``\textbackslash{}Citet'' or ``\textbackslash{}Citep'' instead
+at the beginning of a sentence.
+\Citet{DeJongEtAl_ResRep_AVV_2005}
+would be otherwise shown as
+\citet{DeJongEtAl_ResRep_AVV_2005}
+in your paper.

@@ -1,0 +1,302 @@
+% !TeX encoding = usascii
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% ETH (UNOFFICIAL) DISSERATION LAYOUT
+%% Date: 2007-06-28
+%% author:
+%%   Michael Balmer, balmer@ivt.baug.ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Standard latex layout configurations
+%%   Here, commands and settings are use which are available
+%%   by the latex packages
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Type of document:
+%% - Paperformat: letterpaper, a4paper, a5paper, b5paper,
+%%   executivepaper, legalpaper
+%% - Main font size: 10pt, 11pt, 12pt
+%% - Formulae setting: - (centred), fleqn (left-aligned)
+%% - Numbering of formulae: - (right-aligned), leqno (left-aligned)
+%% - New page after title: titlepage, notitlepage
+%% - Number of columns per page: onecolumn, twocolumn
+%% - Page style: oneside, twoside
+%% - Paper rotation: - (protrait), landscape
+%% - Chapter start: openright, openany
+%% - Mark overfull boxes: draft, final
+%\documentclass[a4paper,12pt,fleqn,titlepage,onecolumn,twoside,openright,final]{report}
+\documentclass[a4paper,14pt,fleqn,titlepage,onecolumn,twoside,openright,final]{extreport}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Package options
+\PassOptionsToPackage{round}{natbib}
+\PassOptionsToPackage{nooneline,format=hang}{caption}
+\PassOptionsToPackage{fleqn}{amsmath}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% borders, margins and offset
+\usepackage[a4paper,left=2.54cm,right=2.54cm,top=2.65cm,bottom=2.32cm,bindingoffset=1.27cm]{geometry}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% template-specific packages to be loaded before other packages:
+\providecommand{\mypackages}{}
+\mypackages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Include default packages and settings
+%%   requires \mypagestyle
+\input{\mypath../_latexfiles/_layouts/_packages}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Header and footer definition:
+\usepackage{fancyhdr}%
+\newcommand{\mypagestyle}{fancy}
+\fancyhf{}%
+\fancyhead[RO]{\slshape \footnotesize \nouppercase{\rightmark}}%
+\fancyhead[LE]{\slshape \footnotesize \nouppercase{\leftmark}}%
+\fancyfoot[COE]{\footnotesize \thepage}%
+\renewcommand{\headrulewidth}{0.5pt}%
+\renewcommand{\footrulewidth}{0pt}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Empty page style at a chapter page
+\makeatletter
+\let\ps@plain=\ps@empty
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% No Header and footer on empty pages
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+  \hbox{}
+  \vspace*{\fill}
+  \begin{center}
+  \end{center}
+  \vspace{\fill}
+  \thispagestyle{empty}
+  \newpage
+  \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% template-specific settings:
+\providecommand{\mysettings}{}
+\mysettings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% citation style:
+\setcitestyle{authoryear}%
+\ifthenelse{\equal{\myfirstlang}{german}}{%
+  \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-ger}%
+}{%
+  \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-eng}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the depth of numbering parts,chapter,sections and paragraphs:
+%%   Numbers representing the depth of sectional units:
+%%   -1 = \part    (in book or report document classes)
+%%    0 = \chapter (in book or report document classes)
+%%    0 = \part    (in article document classes)
+%%    1 = \section
+%%    2 = \subsection
+%%    3 = \subsubsection
+%%    4 = \paragraph
+%%    5 = \subparagraph
+\setcounter{secnumdepth}{3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% no indentation for formulas:
+\setlength\mathindent{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Times font
+\input{\mypath../_latexfiles/_layouts/_font-times}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% line spacing
+\singlespacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% letter spacing
+\usepackage{soul}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% The following defines other internal commands
+%%   Internal command are not used by the main file.
+%%   Internal commands always starts with '\internal'
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% papertype definition
+%%   i.e. working paper/Arbeitsberichte Verkehrs- und Raumplanung
+%%   i.e. disseration/Doktorarbeit
+\newcommand{\internpapertype}{\iflanguage{english}{PhD-Thesis}{\iflanguage{german}{Dissertation}{\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% citation
+%%   returns the language specific citation of the paper
+\newcommand{\interncitation}{%
+  \myfirstauthorREF\ (\myyear) \mytitle, \internpapertype, %
+  \iflanguage{english}{ETH-Zurich, Zurich.}%
+  {\iflanguage{german}{ETH-Z\"urich, Z\"urich.}%
+   {\langerrmessage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Part of the ETH frontpage (english version)
+\newcommand{\internfrontpageEN}{%
+  A dissertation submitted to
+
+  \bigskip
+
+  \MakeUppercase{ETH Zurich}
+
+  \bigskip
+
+  \bigskip
+
+  for the degree of
+
+  \bigskip
+
+  \myfirstauthordoctortitle
+
+  \bigskip
+
+  \bigskip
+
+  \bigskip
+
+  presented by
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Part of the ETH frontpage (german version)
+\newcommand{\internfrontpageDE}{%
+  \MakeUppercase{\so{ABHANDLUNG}}\\
+  zur Erlangung des Titels
+
+  \bigskip
+
+  \MakeUppercase{\myfirstauthordoctortitle}
+
+  \bigskip
+
+  der
+
+  \bigskip
+
+  \MakeUppercase{ETH Z\"urich}
+
+  \bigskip
+
+  \bigskip
+
+  \bigskip
+
+  vorgelegt von
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Language-specific words
+\input{\mypath../_latexfiles/_layouts/_langspec}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Internal commands
+\input{\mypath../_latexfiles/_layouts/_intern}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hyperlink color
+\input{\mypath../_latexfiles/_layouts/_hyperlinks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figure definitions
+\newcommand{\figurerule}{}	% no rules above and below figures
+\newcommand{\tablerule}{}	% no rules above and below tables
+\newcommand{\tablecaptionandcontents}[2]{#1#2}	% caption above (sub)tables
+\newcommand{\figurecaptionandcontents}[2]{#1#2}	% caption above (sub)figures
+\input{\mypath../_latexfiles/_layouts/_figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Contact
+%%   \createcontact
+%%     {<Name>}
+%%     {<andreas line 1>}
+%%     {<andreas line 1>}
+%%     {<andreas line 3>}
+%%     {<phone number>}
+%%     {<fax number>}
+%%     {<email address>}
+\newcommand{\createcontact}[7]{
+  \textbf{#1}
+
+  \bigskip
+
+  #2\\
+  #3\\
+  #4\\
+  #7\\
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage definition
+\newcommand{\createtitlepage}{
+  \begin{titlepage}
+    \noindent DISS. ETH \iflanguage{english}{NO.\ }{\iflanguage{german}{Nr.\ }{\langerrmessage}}\mynumber
+
+    \bigskip
+
+    \bigskip
+
+    \bigskip
+
+    \begin{center}
+      \MakeUppercase{\textbf{\large\mytitle}}
+
+      \bigskip
+
+      \bigskip
+
+      \iflanguage{english}{\internfrontpageEN}{\iflanguage{german}{\internfrontpageDE}{\langerrmessage}}
+
+      \bigskip
+
+      \MakeUppercase{\myfirstauthor}
+
+      \bigskip
+
+      \myfirstauthortitle
+
+      \bigskip
+
+      \iflanguage{english}{born\ }{\iflanguage{german}{geboren am\ }{\langerrmessage}}\myfirstauthorbirthday
+
+      \bigskip
+
+      \iflanguage{english}{citizen of\\}{\iflanguage{german}{von\\}{\langerrmessage}}\myfirstauthorcity
+
+      \vfill
+
+      \iflanguage{english}{accepted on the recommendation of}{\iflanguage{german}{Angenommen auf Antrag von}{\langerrmessage}}
+
+      \bigskip
+
+      \iflanguage{english}{\mysecondauthor, examiner\\}{\iflanguage{german}{\mysecondauthor\\}{\langerrmessage}}
+      \ifthenelse{\equal{\mythirdauthor}{}}{}{\iflanguage{english}{\mythirdauthor,~co-examiner\\}{\iflanguage{german}{\mythirdauthor\\}{\langerrmessage}}}
+      \ifthenelse{\equal{\myfourthauthor}{}}{}{\iflanguage{english}{\myfourthauthor,~co-examiner\\}{\iflanguage{german}{\myfourthauthor\\}{\langerrmessage}}}
+      \ifthenelse{\equal{\myfifthauthor}{}}{}{\iflanguage{english}{\myfifthauthor,~co-examiner\\}{\iflanguage{german}{\myfifthauthor\\}{\langerrmessage}}}
+      \ifthenelse{\equal{\mysixthauthor}{}}{}{\iflanguage{english}{\mysixthauthor,~co-examiner\\}{\iflanguage{german}{\mysixthauthor\\}{\langerrmessage}}}
+
+      \bigskip
+
+      \bigskip
+
+      \myyear
+    \end{center}
+  \end{titlepage}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstract definition
+\newcommand{\createabstract}[1]{
+  \chapter*{\abstractname}%
+  \markboth{\abstractname}{\abstractname}%
+  \addcontentsline{toc}{chapter}{\abstractname}%
+
+  #1
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

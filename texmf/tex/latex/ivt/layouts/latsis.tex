@@ -1,0 +1,105 @@
+% !TeX encoding = usascii
+% Prepare to get rid of \mypath one day
+\providecommand\mypath[3]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% LATSIS PAPER LAYOUT FOR KOMA SCRIPT
+%% Date: 2010-04-05
+%% author:
+%%   Kirill M\"uller, muelleki@ivt.baug.ethz.ch
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Standard latex layout configurations
+%%   Here, commands and settings are use which are available
+%%   by the latex packages
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Type of document:
+%% - Paperformat: letterpaper, a4paper, a5paper, b5paper,
+%%   executivepaper, legalpaper
+%% - Main font size: 10pt, 11pt, 12pt
+%% - Formulae setting: - (centred), fleqn (left-aligned)
+%% - Numbering of formulae: - (right-aligned), leqno (left-aligned)
+%% - New page after title: titlepage, notitlepage
+%% - Number of columns per page: onecolumn, twocolumn
+%% - Page style: oneside, twoside
+%% - Paper rotation: - (protrait), landscape
+%% - Chapter start: openright, openany
+%% - Mark overfull boxes: draft, final
+\providecommand{\mydocumentclass}{
+  \providecommand{\myarticleoptions}{}%
+  \documentclass[\myarticleoptions,11pt,a4paper]{article}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Package options
+\PassOptionsToPackage{nooneline,format=hang}{caption}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Header and footer definition:
+\newcommand{\myheaderfooterdef}{}
+\newcommand{\mypagestyle}{plain}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% template-specific title and TOC settings:
+\newcommand{\mysettings}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titlepage and abstract definition
+%% The elsarticle.cls includes the abstract in the title page
+%% Hence, we wait until the \createabstract command before displaying
+%% the title page
+\newcommand{\createtitlepage}{}%
+\newcommand{\createcontact}[7]{}%
+\newcommand{\extractaddressfromcontact}[1]{%
+  \renewcommand{\createcontact}[7]{%
+      \ifne{##1}{\textbf{##1}\\##2\\\ifne{##3}{##3, }\removeword{##4}\\}%
+  }%
+  #1%
+}%
+\newcommand{\extractemailfromcontact}[1]{%
+  \renewcommand{\createcontact}[7]{%
+      ##7%
+  }%
+  #1%
+}%
+\newcommand{\createabstract}[1]{%
+\title{\mytitle}%
+\author{%
+  \extractaddressfromcontact\myfirstaddress%
+  \extractaddressfromcontact\mysecondaddress%
+  \extractaddressfromcontact\mythirdaddress%
+  \extractaddressfromcontact\myfourthaddress%
+  \extractaddressfromcontact\myfifthaddress%
+  \extractaddressfromcontact\mysixthaddress%
+  Email:\extractemailfromcontact\myfirstaddress%
+}%
+\date{}%
+\maketitle%
+\ifne{#1}{\begin{abstract}#1\end{abstract}}%
+}
+
+\newcommand{\mybibstyle}{
+  \setcitestyle{square,numbers}
+  \ifthenelse{\equal{\myfirstlang}{german}}{%
+    \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-unsrt-ger}%
+  }{%
+    \bibliographystyle{\mypath../_latexfiles/styles/template_ivt-unsrt-eng}%
+  }
+}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Input base file
+\input{\mypath../_latexfiles/_layouts/ivt-generic-base}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% borders, margrins and offset
+\textwidth 150mm \textheight 230mm \topmargin -5mm
+\marginparwidth 19mm
+\oddsidemargin 7mm
+
