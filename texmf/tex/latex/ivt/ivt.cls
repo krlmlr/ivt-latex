@@ -178,7 +178,7 @@
 % option-code for journal=jtlu
 \def\IVT@journal@jtlu{%
 	\renewcommand\IVT@ClassType{jtlu-article-2col}%
-    \renewcommand\IVT@ClassOption{11pt,a4paper}%
+    \renewcommand\IVT@ClassOption{11pt,a4paper,galley}%
 	%\LoadClass{jtlu-article-2col} 
 	\renewcommand{\IVT@include}{\RequirePackage[defblank]{paralist} \RequirePackage{ivt-jtlu}}%
 } % end jtlu
