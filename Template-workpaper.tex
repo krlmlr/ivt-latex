@@ -17,9 +17,6 @@
 %\input{\mypath../_latexfiles/_layouts/ivt-wp}
 \PassOptionsToPackage{debugshow}{kvoptions} % this is used by the class-development
 \documentclass[journal=workpaper]{ivt}
-% \documentclass[journal=trb]{ivt}
-% \documentclass[journal=dissertation]{ivt}
-% \documentclass[journal=report]{ivt}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -237,25 +234,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%
-%%% To speed up compilation, you can split this file and move the
-%%%   contents of the upper part (just before the %&Template line)
-%%%   to a new file named Template.ltx.  This requires a working
-%%%   installation of GNU Make (included in Linux/Mac OS X,
-%%%   in Windows: through cygwin or GnuWin32).
-%%%
-%%% The commands between \iffalse and \fi will do this for you
-%%% (Linux/Mac OS X):
-%\iffalse
-%mv Template.tex Template.tmp
-%grep -B 10000 '^%&Template' Template.tmp > Template.ltx
-%grep -A 10000 '^%&Template' Template.tmp > Template.tex
-%rm Template.tmp
-%\fi
-%%&Template
-%%\input{Template.ltx}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% To speed up compilation, you can split this file and move the
+%%   contents of the upper part (just before the %&Template line)
+%%   to a new file named Template.ltx.  This requires a working
+%%   installation of GNU Make (included in Linux/Mac OS X,
+%%   in Windows: through cygwin or GnuWin32).
+%%
+%% The commands between \iffalse and \fi will do this for you
+%% (Linux/Mac OS X):
+\iffalse
+mv Template.tex Template.tmp
+grep -B 10000 '^%&Template' Template.tmp > Template.ltx
+grep -A 10000 '^%&Template' Template.tmp > Template.tex
+rm Template.tmp
+\fi
+%&Template
+%\input{Template.ltx}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -364,6 +361,7 @@
 %%   Many references are already defined in _latexfiles/bibs/all-eng.bib
 %%   Refer to the BibTeX/LaTeX tutorial for adding new entries
 %%   to the IVT BibTeX database
+%\bibliography{\mypath../_latexfiles/bibs/all-eng,my}
 \bibliography{all-eng,my}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -376,3 +374,20 @@
 \input{App}
 
 \end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% END OF DOCUMENT
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Editor specific keywords:
+%%   This is not part of you paper, but sometimes it is used
+%%   for additional features of TeX Editors.
+%%
+%% WinEdt:
+%%   to get the bibliography list
+%GATHER{./_bibs/all-eng.bib}
