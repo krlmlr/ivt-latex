@@ -186,9 +186,9 @@
 % for other sytles, add here some code
 
 % take-over to the latex basic-documentclasses
+\ProcessKeyvalOptions*
 \PassOptionsToClass{\IVT@ClassOption}{\IVT@ClassType}
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{\IVT@ClassType}}
-\ProcessKeyvalOptions*
 \LoadClass{\IVT@ClassType}
 % include the additional IVT command-declarations
 \IVT@include
